@@ -6,9 +6,11 @@
 //  Copyright 2011年 __MyCompanyName__. All rights reserved.
 //
 
-#import "MapDefines.h"
 #import <Foundation/Foundation.h>
 #import <CoreData/CoreData.h>
+
+#import "MapDefines.h"
+#import "Hotel.h"
 
 @interface MADataStore : NSObject
 

@@ -25,6 +25,9 @@
 		DD72E1EE144BC247000F0AD3 /* OKHotel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = DD72E1EC144BC247000F0AD3 /* OKHotel.xcdatamodeld */; };
 		DD72E1F3144BC447000F0AD3 /* MADataStore.m in Sources */ = {isa = PBXBuildFile; fileRef = DD72E1F2144BC447000F0AD3 /* MADataStore.m */; };
 		DD72E1F5144BC73A000F0AD3 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DD72E1F4144BC73A000F0AD3 /* CoreData.framework */; };
+		DD8D7A5E144BC8CD00E691E2 /* OKHotel.db in Resources */ = {isa = PBXBuildFile; fileRef = DD8D7A5D144BC8CD00E691E2 /* OKHotel.db */; };
+		DD8D7A61144BC98900E691E2 /* libsqlite3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = DD8D7A60144BC98900E691E2 /* libsqlite3.dylib */; };
+		DD8D7A64144BCFFC00E691E2 /* Hotel.m in Sources */ = {isa = PBXBuildFile; fileRef = DD8D7A63144BCFFC00E691E2 /* Hotel.m */; };
 		DDC78EB01447EE4B00DA9B60 /* MapDefines.m in Sources */ = {isa = PBXBuildFile; fileRef = DDC78EAF1447EE4B00DA9B60 /* MapDefines.m */; };
 /* End PBXBuildFile section */
 
@@ -55,6 +58,10 @@
 		DD72E1F1144BC447000F0AD3 /* MADataStore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MADataStore.h; sourceTree = "<group>"; };
 		DD72E1F2144BC447000F0AD3 /* MADataStore.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MADataStore.m; sourceTree = "<group>"; };
 		DD72E1F4144BC73A000F0AD3 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
+		DD8D7A5D144BC8CD00E691E2 /* OKHotel.db */ = {isa = PBXFileReference; lastKnownFileType = file; name = OKHotel.db; path = Resources/OKHotel.db; sourceTree = "<group>"; };
+		DD8D7A60144BC98900E691E2 /* libsqlite3.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libsqlite3.dylib; path = usr/lib/libsqlite3.dylib; sourceTree = SDKROOT; };
+		DD8D7A62144BCFFC00E691E2 /* Hotel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Hotel.h; sourceTree = "<group>"; };
+		DD8D7A63144BCFFC00E691E2 /* Hotel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Hotel.m; sourceTree = "<group>"; };
 		DDC78EAE1447EE4B00DA9B60 /* MapDefines.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MapDefines.h; path = ../../../Project/Map/Classes/MapDefines.h; sourceTree = "<group>"; };
 		DDC78EAF1447EE4B00DA9B60 /* MapDefines.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MapDefines.m; path = ../../../Project/Map/Classes/MapDefines.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -64,6 +71,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DD8D7A61144BC98900E691E2 /* libsqlite3.dylib in Frameworks */,
 				DD72E1F5144BC73A000F0AD3 /* CoreData.framework in Frameworks */,
 				1D60589F0D05DD5A006BFB54 /* Foundation.framework in Frameworks */,
 				1DF5F4E00D08C38300B7A737 /* UIKit.framework in Frameworks */,
@@ -79,6 +87,8 @@
 		080E96DDFE201D6D7F000001 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
+				DD8D7A62144BCFFC00E691E2 /* Hotel.h */,
+				DD8D7A63144BCFFC00E691E2 /* Hotel.m */,
 				DDC78EAE1447EE4B00DA9B60 /* MapDefines.h */,
 				DDC78EAF1447EE4B00DA9B60 /* MapDefines.m */,
 				1D3623240D0F684500981E51 /* MapAppDelegate.h */,
@@ -104,7 +114,7 @@
 		29B97314FDCFA39411CA2CEA /* CustomTemplate */ = {
 			isa = PBXGroup;
 			children = (
-				DD72E1F4144BC73A000F0AD3 /* CoreData.framework */,
+				DD8D7A60144BC98900E691E2 /* libsqlite3.dylib */,
 				080E96DDFE201D6D7F000001 /* Classes */,
 				29B97315FDCFA39411CA2CEA /* Other Sources */,
 				29B97317FDCFA39411CA2CEA /* Resources */,
@@ -126,6 +136,7 @@
 		29B97317FDCFA39411CA2CEA /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				DD8D7A5D144BC8CD00E691E2 /* OKHotel.db */,
 				DD72E1EC144BC247000F0AD3 /* OKHotel.xcdatamodeld */,
 				DD60992E1447D5F400C97A06 /* myPin3.png */,
 				DD60992F1447D5F400C97A06 /* myPin4.png */,
@@ -142,6 +153,7 @@
 			isa = PBXGroup;
 			children = (
 				1DF5F4DF0D08C38300B7A737 /* UIKit.framework */,
+				DD72E1F4144BC73A000F0AD3 /* CoreData.framework */,
 				1D30AB110D05D00D00671497 /* Foundation.framework */,
 				288765FC0DF74451002DB57D /* CoreGraphics.framework */,
 				21314A6711EFFBD100ECA308 /* MapKit.framework */,
@@ -205,6 +217,7 @@
 				DD60992D1447D38200C97A06 /* myPin2.png in Resources */,
 				DD6099301447D5F400C97A06 /* myPin3.png in Resources */,
 				DD6099311447D5F400C97A06 /* myPin4.png in Resources */,
+				DD8D7A5E144BC8CD00E691E2 /* OKHotel.db in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -222,6 +235,7 @@
 				DDC78EB01447EE4B00DA9B60 /* MapDefines.m in Sources */,
 				DD72E1EE144BC247000F0AD3 /* OKHotel.xcdatamodeld in Sources */,
 				DD72E1F3144BC447000F0AD3 /* MADataStore.m in Sources */,
+				DD8D7A64144BCFFC00E691E2 /* Hotel.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
