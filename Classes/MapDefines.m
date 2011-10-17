@@ -45,3 +45,5 @@ double_t MapDistanceBetweenCoordinates (CLLocationCoordinate2D fromCoordinate, C
 	return dist;
 
 }
+
+NSString * const kMADataStore_hasPerformedInitialImport = @"MADataStore_hasPerformedInitialImport";

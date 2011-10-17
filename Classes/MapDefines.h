@@ -9,3 +9,5 @@
 #import <CoreLocation/CoreLocation.h>
 
 extern double_t MapDistanceBetweenCoordinates (CLLocationCoordinate2D fromCoordinate, CLLocationCoordinate2D toCoordinate);
+
+extern NSString * const kMADataStore_hasPerformedInitialImport;

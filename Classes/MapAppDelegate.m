@@ -7,6 +7,7 @@
 //
 
 #import "MapAppDelegate.h"
+#import "MADataStore.h"
 
 @implementation MapAppDelegate
 
@@ -17,6 +18,9 @@
 #pragma mark Application lifecycle
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {    
+
+	if (![MADataStore hasPerformedInitialImport])
+		[[MADataStore defaultStore] importData];
     
     // Override point for customization after application launch.
 	
