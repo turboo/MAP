@@ -14,7 +14,7 @@
 @private
 }
 @property (nonatomic, retain) NSString * address;
-@property (nonatomic, retain) NSString * areaCode;
+@property (nonatomic, retain) NSNumber * areaCode;
 @property (nonatomic, retain) NSString * areaName;
 @property (nonatomic, retain) NSString * descriptionHTML;
 @property (nonatomic, retain) NSString * displayName;

@@ -32,4 +32,6 @@ enum {
 @property (nonatomic, readwrite, copy) NSString *subtitle;
 @property (nonatomic, readwrite, assign) MyAnnotationType type;
 
+@property (nonatomic, readwrite, retain) id representedObject;
+
 @end

@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<model name="" userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="562" systemVersion="10K549" minimumToolsVersion="Automatic" macOSVersion="Automatic" iOSVersion="Automatic">
+    <entity name="Hotel" representedClassName="Hotel">
+        <attribute name="address" optional="YES" attributeType="String"/>
+        <attribute name="areaCode" optional="YES" attributeType="Integer 16" defaultValueString="0"/>
+        <attribute name="areaName" optional="YES" attributeType="String"/>
+        <attribute name="descriptionHTML" optional="YES" attributeType="String"/>
+        <attribute name="displayName" optional="YES" attributeType="String"/>
+        <attribute name="email" optional="YES" attributeType="String"/>
+        <attribute name="fax" optional="YES" attributeType="String"/>
+        <attribute name="latitude" optional="YES" attributeType="Double" defaultValueString="0.0"/>
+        <attribute name="longitude" optional="YES" attributeType="Double" defaultValueString="0.0"/>
+        <attribute name="modificationDate" optional="YES" attributeType="Date"/>
+        <attribute name="odIdentifier" optional="YES" attributeType="Integer 16" defaultValueString="0"/>
+        <attribute name="tel" optional="YES" attributeType="String"/>
+        <attribute name="ttIdentifier" optional="YES" attributeType="String"/>
+    </entity>
+    <elements>
+        <element name="Hotel" positionX="-4680" positionY="300" width="128" height="240"/>
+    </elements>
+</model>

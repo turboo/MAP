@@ -8,29 +8,111 @@
 
 #import "MapDefines.h"
 #import "MapViewController.h"
+#import "Hotel.h"
+#import "MADataStore.h"
 
-
-@interface MapViewController ()
+@interface MapViewController () <NSFetchedResultsControllerDelegate>
 
 + (NSString *) imageNameForAnnotationType:(MyAnnotationType)aType;
++ (NSFetchRequest *) fetchRequestInContext:(NSManagedObjectContext *)aContext forCoordinateRegion:(MKCoordinateRegion)region;
+
+- (void) refreshAnnotations;
+
+@property (nonatomic, readwrite, retain) MKMapView *mapView;
+@property (nonatomic, readwrite, retain) NSManagedObjectContext *managedObjectContext;
+@property (nonatomic, readwrite, retain) NSFetchedResultsController *fetchedResultsController;
 
 @end
 
 
 @implementation MapViewController
+@synthesize managedObjectContext, fetchedResultsController;
+@synthesize mapView;
+
++ (NSFetchRequest *) fetchRequestInContext:(NSManagedObjectContext *)aContext forCoordinateRegion:(MKCoordinateRegion)region {
+
+	CLLocationDegrees minLat, maxLat, minLng, maxLng;
+	
+	minLat = region.center.latitude - region.span.latitudeDelta;
+	maxLat = region.center.latitude + region.span.latitudeDelta;
+	minLng = region.center.longitude - region.span.longitudeDelta;
+	maxLng = region.center.longitude + region.span.longitudeDelta;
+	
+	NSFetchRequest *fetchRequest = [[[NSFetchRequest alloc] init] autorelease];
+	
+	fetchRequest.entity = [NSEntityDescription entityForName:@"Hotel" inManagedObjectContext:aContext];
+	
+	fetchRequest.predicate = [NSPredicate predicateWithFormat:@"(latitude >= %f) AND (latitude <= %f) AND (longitude >= %f) AND longitude <= %f", minLat, maxLat, minLng, maxLng];
+		
+	fetchRequest.sortDescriptors = [NSArray arrayWithObjects:
+		
+		[NSSortDescriptor sortDescriptorWithKey:@"modificationDate" ascending:YES],
+		
+	nil];
+	
+	return fetchRequest;
+
+}
+
+- (id) initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
+
+	self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
+	if (!self)
+		return nil;
+	
+    self.title = @"Hotel Map";
+	
+	self.managedObjectContext = [[MADataStore defaultStore] disposableMOC];
+	self.fetchedResultsController = [[[NSFetchedResultsController alloc] initWithFetchRequest:((^ {
+		return [[self class] fetchRequestInContext:self.managedObjectContext forCoordinateRegion:(MKCoordinateRegion){
+			(CLLocationCoordinate2D){ 0, 0 },
+			(MKCoordinateSpan){ 180, 360 }
+		}];
+	})()) managedObjectContext:self.managedObjectContext sectionNameKeyPath:nil cacheName:nil] autorelease];
+	
+	self.fetchedResultsController.delegate = self;
+	
+	NSError *fetchingError = nil;
+	if (![self.fetchedResultsController performFetch:&fetchingError])
+		NSLog(@"Error fetching: %@", fetchingError);
+			
+	return self;
+
+}
+
+- (void) viewDidUnload {
+
+    [super viewDidUnload];
+	[mapView release];
+	
+}
+
+- (void) loadView {
+
+	[super loadView];
+
+    mapView = [[MKMapView alloc] initWithFrame:self.view.bounds];
+	mapView.autoresizingMask = UIViewAutoresizingFlexibleWidth|UIViewAutoresizingFlexibleHeight;
+    mapView.delegate = self;
+    
+    [self.view addSubview:mapView];
+
+}
+
+- (void) dealloc {
+
+	[managedObjectContext release];
+	[fetchedResultsController release];
+	[mapView release];
+    [super dealloc];
+
+}
+
 
 - (void) viewDidLoad {
     
 	[super viewDidLoad];
-    
-    [self.view setFrame: [[UIScreen mainScreen] bounds]];
-    self.title = @"Google Map";
-    
-    mapView = [[MKMapView alloc] initWithFrame:self.view.frame];
-    mapView.delegate = self;
-    
-    [self.view addSubview:mapView];
-    
+        
 	const MKCoordinateRegion hereIam = (MKCoordinateRegion){
 		(CLLocationCoordinate2D) { 24.985649, 121.467486 },
 		(MKCoordinateSpan) { 0.008, 0.008 }
@@ -41,60 +123,42 @@
     mapView.multipleTouchEnabled = YES;
     [mapView setRegion:hereIam animated:YES];
     
-    MyAnnotation *annotation = [[[MyAnnotation alloc] init] autorelease];
-    annotation.coordinate = hereIam.center;
-    annotation.title = [NSString stringWithFormat:@"I AM Here %i", 0];
-    annotation.subtitle = @"Here!";
-    [mapView selectAnnotation:annotation animated:YES];
+//    MyAnnotation *annotation = [[[MyAnnotation alloc] init] autorelease];
+//    annotation.coordinate = hereIam.center;
+//    annotation.title = [NSString stringWithFormat:@"I AM Here %i", 0];
+//    annotation.subtitle = @"Here!";
+//    [mapView selectAnnotation:annotation animated:YES];
 
-    
-    NSMutableArray *annotations = [NSMutableArray array];
-    
-    for (int i = 1; i <= 30; i++){
-
-        MyAnnotation *annotation = [[MyAnnotation alloc] init];
-        CLLocationCoordinate2D coordinate;
-        
-        if (i % 4 == 0) {
-            
-			coordinate.latitude  = mapView.centerCoordinate.latitude  + (float)(arc4random() % 8) / 1000;
-            coordinate.longitude = mapView.centerCoordinate.longitude + (float)(arc4random() % 8) / 1000;
-            annotation.type = AnnotationOneStarType;
-			
-        } else if (i % 4 == 1) {
-            
-			coordinate.latitude  = mapView.centerCoordinate.latitude  - (float)(arc4random() % 8) / 1000;
-            coordinate.longitude = mapView.centerCoordinate.longitude - (float)(arc4random() % 8) / 1000;
-            annotation.type = AnnotationTwoStarsType;
-			
-        } else if (i % 4 == 2) {
-            
-			coordinate.latitude  = mapView.centerCoordinate.latitude  + (float)(arc4random() % 8) / 1000;
-            coordinate.longitude = mapView.centerCoordinate.longitude - (float)(arc4random() % 8) / 1000;
-            annotation.type = AnnotationThreeStarsType;
-			
-        } else {
-            
-			coordinate.latitude  = mapView.centerCoordinate.latitude  - (float)(arc4random() % 8) / 1000;
-            coordinate.longitude = mapView.centerCoordinate.longitude + (float)(arc4random() % 8) / 1000;
-            annotation.type = AnnotationFourStarsType;
-			
-        }
-        
-        annotation.coordinate = coordinate;
-        annotation.title = [NSString stringWithFormat:@"Title %i", i];
-        annotation.subtitle = [NSString stringWithFormat:@"距離： %0.0f m", MapDistanceBetweenCoordinates(hereIam.center, coordinate)];
-        [annotations addObject:annotation];
-		
-        [annotation release];
-
-    }
-
-	[mapView addAnnotations:annotations];
-
-
-	
+//    
+//    NSMutableArray *annotations = [NSMutableArray array];
+//    
+//    for (int i = 1; i <= 30; i++){
+//
+//        MyAnnotation *annotation = [[MyAnnotation alloc] init];
+//        CLLocationCoordinate2D coordinate;
+//        
+//        if (i % 4 == 0) {
+//            
+//			coordinate.latitude  = mapView.centerCoordinate.latitude  + (float)(arc4random() % 8) / 1000;
+//            coordinate.longitude = mapView.centerCoordinate.longitude + (float)(arc4random() % 8) / 1000;
+//            annotation.type = AnnotationOneStarType;
+//			
+//        annotation.coordinate = coordinate;
+//        annotation.title = [NSString stringWithFormat:@"Title %i", i];
+//        annotation.subtitle = [NSString stringWithFormat:@"距離： %0.0f m", MapDistanceBetweenCoordinates(hereIam.center, coordinate)];
+//        [annotations addObject:annotation];
+//		
+//        [annotation release];
+//
+//    }
+//
+//	[mapView addAnnotations:annotations];
+//
+//
+//	
 }
+
+
 
 //-(MKAnnotationView *)mapView:(MKMapView *)amapView viewForAnnotation:(id<MKAnnotation>)annotation{
 //    MKPinAnnotationView *newAnnotation = [[MKPinAnnotationView alloc] initWithAnnotation:annotation reuseIdentifier:@"annotation1"];   
@@ -112,6 +176,80 @@
 //}
 
 
+
+
+- (void) controllerDidChangeContent:(NSFetchedResultsController *)controller {
+
+	NSLog(@"controller did change content, to %@", self.fetchedResultsController.fetchedObjects);
+
+}
+
+- (void)mapView:(MKMapView *)mapView regionWillChangeAnimated:(BOOL)animated {
+
+}
+
+- (void) mapView:(MKMapView *)aMapView regionDidChangeAnimated:(BOOL)animated {
+
+	NSFetchRequest *newFetchRequest = [[self class] fetchRequestInContext:self.managedObjectContext forCoordinateRegion:aMapView.region];
+	
+	if (self.fetchedResultsController.cacheName)
+		[[self.fetchedResultsController class] deleteCacheWithName:self.fetchedResultsController.cacheName];
+
+	self.fetchedResultsController.fetchRequest.predicate = newFetchRequest.predicate;
+	
+	NSError *fetchingError = nil;
+	if (![self.fetchedResultsController performFetch:&fetchingError])
+		NSLog(@"Error fetching: %@", fetchingError);
+	
+	[self refreshAnnotations];
+	
+}
+
+- (void) refreshAnnotations {
+
+	NSArray *shownHotels = self.fetchedResultsController.fetchedObjects;
+	NSMutableArray *shownAnnotations = [NSMutableArray arrayWithCapacity:[shownHotels count]];
+	for (unsigned int i = 0; i < [shownHotels count]; i++)
+		[shownAnnotations addObject:[NSNull null]];
+
+	NSArray *removedAnnotations = [self.mapView.annotations filteredArrayUsingPredicate:[NSPredicate predicateWithBlock: ^ (MyAnnotation *anAnnotation, NSDictionary *bindings) {
+		
+		if (![anAnnotation isKindOfClass:[MyAnnotation class]])
+			return (BOOL)NO;
+		
+		NSUInteger hotelIndex = [shownHotels indexOfObject:anAnnotation.representedObject];
+		if (hotelIndex == NSNotFound)
+			return (BOOL)YES;
+		
+		[shownAnnotations replaceObjectAtIndex:hotelIndex withObject:anAnnotation];
+		return (BOOL)NO;
+		
+	}]];
+
+	[self.mapView removeAnnotations:removedAnnotations];
+	
+	[shownHotels enumerateObjectsUsingBlock: ^ (Hotel *aHotel, NSUInteger idx, BOOL *stop) {
+	
+		MyAnnotation *annotation = [shownAnnotations objectAtIndex:idx];
+		if (![annotation isKindOfClass:[MyAnnotation class]]) {
+			annotation = [[[MyAnnotation alloc] init] autorelease];
+			[shownAnnotations replaceObjectAtIndex:idx withObject:annotation];
+		}
+		
+		annotation.coordinate = (CLLocationCoordinate2D) {
+			[aHotel.latitude doubleValue],
+			[aHotel.longitude doubleValue]
+		};
+		
+		annotation.title = aHotel.displayName;
+		annotation.type = AnnotationThreeStarsType;
+		annotation.representedObject = aHotel;
+
+	}];
+	
+	[self.mapView addAnnotations:shownAnnotations];
+	
+}
 
 - (MKAnnotationView *) mapView:(MKMapView *)aMapView viewForAnnotation:(MyAnnotation *)annotation{
 
@@ -171,21 +309,5 @@
 	return nil;
 
 }
-
-- (void) viewDidUnload {
-
-    [super viewDidUnload];
-	[mapView release];
-	
-}
-
-
-- (void) dealloc {
-
-	[mapView release];
-    [super dealloc];
-
-}
-
 
 @end
