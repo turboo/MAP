@@ -30,6 +30,8 @@ enum {
 @property (nonatomic, readwrite, assign) CLLocationCoordinate2D coordinate;
 @property (nonatomic, readwrite, copy) NSString *title;
 @property (nonatomic, readwrite, copy) NSString *subtitle;
+@property (nonatomic, readwrite, copy) NSNumber *costStay;
+@property (nonatomic, readwrite, copy) NSNumber *costRest;
 @property (nonatomic, readwrite, assign) MyAnnotationType type;
 
 @property (nonatomic, readwrite, retain) id representedObject;

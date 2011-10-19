@@ -11,12 +11,14 @@
 @implementation MyAnnotation
 
 @synthesize coordinate, title, subtitle, type, representedObject;
+@synthesize costRest,costStay;
 
 - (void) dealloc {
     
     [title release];
     [subtitle release];
-	
+	[costRest release];
+	[costStay release];
 	[representedObject release];
     
     [super dealloc];

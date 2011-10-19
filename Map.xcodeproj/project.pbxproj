@@ -25,6 +25,7 @@
 		DD72E1EE144BC247000F0AD3 /* OKHotel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = DD72E1EC144BC247000F0AD3 /* OKHotel.xcdatamodeld */; };
 		DD72E1F3144BC447000F0AD3 /* MADataStore.m in Sources */ = {isa = PBXBuildFile; fileRef = DD72E1F2144BC447000F0AD3 /* MADataStore.m */; };
 		DD72E1F5144BC73A000F0AD3 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DD72E1F4144BC73A000F0AD3 /* CoreData.framework */; };
+		DD7514FE144E832000F39767 /* CombineImages.m in Sources */ = {isa = PBXBuildFile; fileRef = DD7514FD144E832000F39767 /* CombineImages.m */; };
 		DD8D7A5E144BC8CD00E691E2 /* OKHotel.db in Resources */ = {isa = PBXBuildFile; fileRef = DD8D7A5D144BC8CD00E691E2 /* OKHotel.db */; };
 		DD8D7A61144BC98900E691E2 /* libsqlite3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = DD8D7A60144BC98900E691E2 /* libsqlite3.dylib */; };
 		DD8D7A64144BCFFC00E691E2 /* Hotel.m in Sources */ = {isa = PBXBuildFile; fileRef = DD8D7A63144BCFFC00E691E2 /* Hotel.m */; };
@@ -59,6 +60,9 @@
 		DD72E1F1144BC447000F0AD3 /* MADataStore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MADataStore.h; sourceTree = "<group>"; };
 		DD72E1F2144BC447000F0AD3 /* MADataStore.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MADataStore.m; sourceTree = "<group>"; };
 		DD72E1F4144BC73A000F0AD3 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
+		DD7514F6144E5B0400F39767 /* OKHotel 4.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "OKHotel 4.xcdatamodel"; sourceTree = "<group>"; };
+		DD7514FC144E832000F39767 /* CombineImages.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CombineImages.h; sourceTree = "<group>"; };
+		DD7514FD144E832000F39767 /* CombineImages.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CombineImages.m; sourceTree = "<group>"; };
 		DD8D7A5D144BC8CD00E691E2 /* OKHotel.db */ = {isa = PBXFileReference; lastKnownFileType = file; name = OKHotel.db; path = Resources/OKHotel.db; sourceTree = "<group>"; };
 		DD8D7A60144BC98900E691E2 /* libsqlite3.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libsqlite3.dylib; path = usr/lib/libsqlite3.dylib; sourceTree = SDKROOT; };
 		DD8D7A62144BCFFC00E691E2 /* Hotel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Hotel.h; sourceTree = "<group>"; };
@@ -96,6 +100,8 @@
 				1D3623250D0F684500981E51 /* MapAppDelegate.m */,
 				DD72E1F1144BC447000F0AD3 /* MADataStore.h */,
 				DD72E1F2144BC447000F0AD3 /* MADataStore.m */,
+				DD7514FC144E832000F39767 /* CombineImages.h */,
+				DD7514FD144E832000F39767 /* CombineImages.m */,
 				21314A5F11EFFA8C00ECA308 /* MapViewController.h */,
 				21314A6011EFFA8C00ECA308 /* MapViewController.m */,
 				211C2F9811F04BC20003F933 /* MyAnnotation.h */,
@@ -237,6 +243,7 @@
 				DD72E1EE144BC247000F0AD3 /* OKHotel.xcdatamodeld in Sources */,
 				DD72E1F3144BC447000F0AD3 /* MADataStore.m in Sources */,
 				DD8D7A64144BCFFC00E691E2 /* Hotel.m in Sources */,
+				DD7514FE144E832000F39767 /* CombineImages.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -324,6 +331,7 @@
 		DD72E1EC144BC247000F0AD3 /* OKHotel.xcdatamodeld */ = {
 			isa = XCVersionGroup;
 			children = (
+				DD7514F6144E5B0400F39767 /* OKHotel 4.xcdatamodel */,
 				DD72E1F0144BC415000F0AD3 /* OKHotel 2.xcdatamodel */,
 				DD1A9A1E144D105100CB6ACE /* OKHotel 3.xcdatamodel */,
 				DD72E1ED144BC247000F0AD3 /* OKHotel.xcdatamodel */,

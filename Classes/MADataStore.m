@@ -129,7 +129,10 @@
 	}
 		
 	NSEntityDescription *hotelEntity = [NSEntityDescription entityForName:@"Hotel" inManagedObjectContext:context];
-	
+
+	NSNumber * (^fromBool)(int) = ^ (int aColumn) {
+		return [NSNumber numberWithInt:sqlite3_column_bytes(statement, aColumn)];
+	};	
 	NSNumber * (^fromInt)(int) = ^ (int aColumn) {
 		return [NSNumber numberWithInt:sqlite3_column_int(statement, aColumn)];
 	};
@@ -168,6 +171,16 @@
 		insertedHotel.areaName			= fromText(10);
 		insertedHotel.modificationDate	= fromDate(11);
 		insertedHotel.email				= fromText(12);
+
+/*		insertedHotel.hotelType			= fromInt(13);
+		insertedHotel.xmlUpdateDate		= fromDate(14);
+		insertedHotel.imagesArray		= fromText(15);
+		insertedHotel.favorites			= fromBool(16);
+		insertedHotel.costStay			= fromInt(17);				
+		insertedHotel.costRest			= fromInt(18);		
+*/
+//		NSLog(@"costStay:%d , costRest:%d " ,fromInt(17),fromInt(18) );
+		
 
 	}
 	

@@ -24,4 +24,12 @@
 @dynamic odIdentifier;
 @dynamic ttIdentifier;
 
+@dynamic hotelType;
+@dynamic xmlUpdateDate;
+@dynamic imagesArray;
+@dynamic favorites;
+@dynamic costStay;
+@dynamic costRest;
+
+
 @end

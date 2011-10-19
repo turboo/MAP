@@ -10,6 +10,7 @@
 #import "MapViewController.h"
 #import "Hotel.h"
 #import "MADataStore.h"
+#import "CombineImages.h"
 
 @interface MapViewController () <NSFetchedResultsControllerDelegate>
 
@@ -100,7 +101,7 @@
 }
 
 - (void) dealloc {
-
+	//[newImage release];
 	[managedObjectContext release];
 	[fetchedResultsController release];
 	[mapView release];
@@ -114,8 +115,8 @@
 	[super viewDidLoad];
         
 	const MKCoordinateRegion hereIam = (MKCoordinateRegion){
-		(CLLocationCoordinate2D) { 24.985649, 121.467486 },
-		(MKCoordinateSpan) { 0.008, 0.008 }
+		(CLLocationCoordinate2D) { 25.041349, 121.557802 },
+		(MKCoordinateSpan) { 0.006, 0.006 }
 	};
     
     mapView.showsUserLocation = YES;
@@ -243,6 +244,8 @@
 		
 		annotation.title = aHotel.displayName;
 		annotation.type = AnnotationThreeStarsType;
+		//annotation.costStay = aHotel.costStay;
+		//annotation.costRest = aHotel.costRest;
 		annotation.representedObject = aHotel;
 
 	}];
@@ -262,6 +265,17 @@
 
 	NSString * identifier = [[self class] imageNameForAnnotationType:annotation.type];
 	
+	//CombineImages *preImage  =
+	//CombineImages *temp=[[CombineImages alloc] init];
+	
+	NSLog(@"String:%@" , annotation.costRest);
+	
+	NSLog(@"Images:%@" , identifier);
+	
+	
+	//UIImage *newImage = [temp addText2Image:[UIImage imageNamed:identifier] addText:[NSString stringWithFormat:@"%d起",annotation.costRest]];
+
+
 	MKPinAnnotationView *pinView = (MKPinAnnotationView *)[aMapView dequeueReusableAnnotationViewWithIdentifier:identifier];
 	
 	if (!pinView) {
@@ -269,13 +283,14 @@
 		pinView = [[[MKPinAnnotationView alloc] initWithAnnotation:annotation reuseIdentifier:identifier] autorelease];
 	 
 		pinView.canShowCallout = YES;
+		//pinView.image = newImage;
 		pinView.image = [UIImage imageNamed:identifier];
 		pinView.calloutOffset = (CGPoint){ 0, 0 };
 
 	}
 	
 	pinView.annotation = annotation;
-	    
+	//newImage = nil;
     return pinView;
 
 }

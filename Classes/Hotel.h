@@ -27,4 +27,10 @@
 @property (nonatomic, retain) NSNumber * odIdentifier;
 @property (nonatomic, retain) NSString * ttIdentifier;
 
+@property (nonatomic, retain) NSNumber * hotelType;
+@property (nonatomic, retain) NSDate   * xmlUpdateDate;
+@property (nonatomic, retain) NSString * imagesArray;
+@property (nonatomic, retain) NSNumber * favorites;
+@property (nonatomic, retain) NSNumber * costStay;
+@property (nonatomic, retain) NSNumber * costRest;
 @end
