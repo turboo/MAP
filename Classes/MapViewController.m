@@ -250,14 +250,11 @@
 
 	}];
 	
+	
 	[self.mapView addAnnotations:shownAnnotations];
 	
 }
 
--(void)mapView:(MKMapView *)mapView annotationView:(MyAnnotation *)view calloutAccessoryControlTapped:(UIControl *)control{
-	NSLog(@"%d", 100);
-
-}
 
 - (MKAnnotationView *) mapView:(MKMapView *)aMapView viewForAnnotation:(MyAnnotation *)annotation{
 
@@ -283,17 +280,39 @@
 	if (!pinView) {
 	
 		pinView = [[[MKPinAnnotationView alloc] initWithAnnotation:annotation reuseIdentifier:identifier] autorelease];
-	 
 		pinView.canShowCallout = YES;
 		pinView.image = newImage;
 		//pinView.image = [UIImage imageNamed:identifier];
 		pinView.calloutOffset = (CGPoint){ 0, 0 };
 
 	}
-	
+	pinView.rightCalloutAccessoryView = [UIButton buttonWithType:UIButtonTypeDetailDisclosure];
+	pinView.LeftCalloutAccessoryView = [UIButton buttonWithType:UIButtonTypeCustom];
+	//pinView.leftCalloutAccessoryView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"image.png"]];
 	pinView.annotation = annotation;
 	newImage = nil;
     return pinView;
+
+}
+
+
+-(void)mapView:(MKMapView *)mapView annotationView:(MyAnnotation *)pinView calloutAccessoryControlTapped:(UIControl *)control{
+	NSLog(@"switch to detail view%@",[pinView description]);
+	//[pinView.coordinate.latitude ]
+	NSLog(@"latitude : %@",pinView.description);
+	
+	
+//    [[[[UIAlertView alloc] initWithTitle:pinView.title 
+//                                 message:pinView.subtitle 
+//                                delegate:nil
+//                       cancelButtonTitle:@"OK"
+//                       otherButtonTitles:nil, nil] 
+//      autorelease];
+//	
+	
+	
+	
+
 
 }
 

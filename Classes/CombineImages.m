@@ -26,8 +26,8 @@
 	NSLog(@"theText:%@" , theText);
 	
 
-    int w = theImage.size.width-15;
-    int h = theImage.size.height-5; 
+    int w = theImage.size.width;
+    int h = theImage.size.height; 
     //lon = h - lon;
     CGColorSpaceRef colorSpace = CGColorSpaceCreateDeviceRGB();
     CGContextRef context = CGBitmapContextCreate(NULL, w, h, 8, 4 * w, colorSpace, kCGImageAlphaPremultipliedFirst);
