@@ -4,7 +4,7 @@
         <attribute name="address" optional="YES" attributeType="String"/>
         <attribute name="areaCode" optional="YES" attributeType="Integer 16" defaultValueString="0"/>
         <attribute name="areaName" optional="YES" attributeType="String"/>
-        <attribute name="costRest" optional="YES" attributeType="Integer 16" defaultValueString="0"/>
+        <attribute name="costRest" optional="YES" attributeType="Date"/>
         <attribute name="costStay" optional="YES" attributeType="Integer 16" defaultValueString="0"/>
         <attribute name="descriptionHTML" optional="YES" attributeType="String"/>
         <attribute name="displayName" optional="YES" attributeType="String"/>
@@ -19,9 +19,10 @@
         <attribute name="odIdentifier" optional="YES" attributeType="Integer 16" defaultValueString="0"/>
         <attribute name="tel" optional="YES" attributeType="String"/>
         <attribute name="ttIdentifier" optional="YES" attributeType="String"/>
+        <attribute name="useDate" optional="YES" attributeType="Date"/>
         <attribute name="xmlUpdateDate" optional="YES" attributeType="Date"/>
     </entity>
     <elements>
-        <element name="Hotel" positionX="-4680" positionY="300" width="128" height="240"/>
+        <element name="Hotel" positionX="-4680" positionY="300" width="128" height="345"/>
     </elements>
 </model>

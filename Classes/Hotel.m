@@ -30,6 +30,6 @@
 @dynamic favorites;
 @dynamic costStay;
 @dynamic costRest;
-
+@dynamic useDate;
 
 @end

@@ -22,26 +22,33 @@
 }
 
 - (UIImage *)addText2Image:(UIImage *)theImage addText:(NSString *)theText{
-    int w = theImage.size.width;
-    int h = theImage.size.height; 
+
+	NSLog(@"theText:%@" , theText);
+	
+
+    int w = theImage.size.width-15;
+    int h = theImage.size.height-5; 
     //lon = h - lon;
     CGColorSpaceRef colorSpace = CGColorSpaceCreateDeviceRGB();
     CGContextRef context = CGBitmapContextCreate(NULL, w, h, 8, 4 * w, colorSpace, kCGImageAlphaPremultipliedFirst);
     
     CGContextDrawImage(context, CGRectMake(0, 0, w, h), theImage.CGImage);
-    CGContextSetRGBFillColor(context, 0.0, 0.0, 1.0, 1);
+    CGContextSetRGBFillColor(context, 0.0, 0.0, 1, 1);
 	
     //char* text	= (char *)[theText cStringUsingEncoding:NSASCIIStringEncoding];// "05/05/09";
-	char* text	= (char *)[theText cStringUsingEncoding:NSUTF8StringEncoding];// "05/05/09";
-    CGContextSelectFont(context, "Arial", 18, kCGEncodingMacRoman);
-    CGContextSetTextDrawingMode(context, kCGTextFill);
+	char* text	= (char *)[theText cStringUsingEncoding:NSUTF8StringEncoding];
+	
+	//Arial
+    CGContextSelectFont(context, "Arial", 12, kCGEncodingMacRoman);
+    CGContextSetTextDrawingMode(context,  kCGTextFill );
     CGContextSetRGBFillColor(context, 255, 255, 255, 1);
 	
+
  
     //rotate text
-    CGContextSetTextMatrix(context, CGAffineTransformMakeRotation( -M_PI/4 ));
+    //CGContextSetTextMatrix(context, CGAffineTransformMakeRotation( -M_PI/4 ));
 	
-    CGContextShowTextAtPoint(context, 4, 52, text, strlen(text));
+    CGContextShowTextAtPoint(context, 3, 13, text, strlen(text));
 	
 	
     CGImageRef imageMasked = CGBitmapContextCreateImage(context);
@@ -51,4 +58,8 @@
     return [UIImage imageWithCGImage:imageMasked];
 }
 
+- (UIImage *)addText2Image2:(UIImage *)theImage addText:(NSString *)theText{
+
+
+}
 @end

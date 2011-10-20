@@ -172,14 +172,13 @@
 		insertedHotel.modificationDate	= fromDate(11);
 		insertedHotel.email				= fromText(12);
 
-/*		insertedHotel.hotelType			= fromInt(13);
-		insertedHotel.xmlUpdateDate		= fromDate(14);
-		insertedHotel.imagesArray		= fromText(15);
+		insertedHotel.hotelType			= fromInt(13);
+		//insertedHotel.xmlUpdateDate		= fromDate(14);
+		//insertedHotel.imagesArray		= fromText(15);
 		insertedHotel.favorites			= fromBool(16);
 		insertedHotel.costStay			= fromInt(17);				
-		insertedHotel.costRest			= fromInt(18);		
-*/
-//		NSLog(@"costStay:%d , costRest:%d " ,fromInt(17),fromInt(18) );
+		insertedHotel.costRest			= fromInt(18);
+		//insertedHotel.useDate		= fromDate(19);
 		
 
 	}

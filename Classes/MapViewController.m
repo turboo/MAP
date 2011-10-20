@@ -243,15 +243,20 @@
 		};
 		
 		annotation.title = aHotel.displayName;
-		annotation.type = AnnotationThreeStarsType;
-		//annotation.costStay = aHotel.costStay;
-		//annotation.costRest = aHotel.costRest;
+		annotation.type = aHotel.areaCode.integerValue;
+		annotation.costStay = aHotel.costStay;
+		annotation.costRest = aHotel.costRest;
 		annotation.representedObject = aHotel;
 
 	}];
 	
 	[self.mapView addAnnotations:shownAnnotations];
 	
+}
+
+-(void)mapView:(MKMapView *)mapView annotationView:(MyAnnotation *)view calloutAccessoryControlTapped:(UIControl *)control{
+	NSLog(@"%d", 100);
+
 }
 
 - (MKAnnotationView *) mapView:(MKMapView *)aMapView viewForAnnotation:(MyAnnotation *)annotation{
@@ -265,15 +270,12 @@
 
 	NSString * identifier = [[self class] imageNameForAnnotationType:annotation.type];
 	
-	//CombineImages *preImage  =
-	//CombineImages *temp=[[CombineImages alloc] init];
-	
-	NSLog(@"String:%@" , annotation.costRest);
-	
-	NSLog(@"Images:%@" , identifier);
-	
-	
-	//UIImage *newImage = [temp addText2Image:[UIImage imageNamed:identifier] addText:[NSString stringWithFormat:@"%d起",annotation.costRest]];
+
+	CombineImages *temp=[[CombineImages alloc] init];
+
+
+	//UIImage *newImage = [temp addText2Image:[UIImage imageNamed:identifier] addText:( annotation.costStay == 0 ) ?  [NSString stringWithFormat:@"(不提供)"]:[NSString stringWithFormat:@"%@起..",annotation.costStay] ];
+	UIImage *newImage = [temp addText2Image:[UIImage imageNamed:identifier] addText:( annotation.costStay.integerValue == 0 ) ?  [NSString stringWithFormat:@"(?)"]:[NSString stringWithFormat:@"NT:%@",annotation.costStay] ];
 
 
 	MKPinAnnotationView *pinView = (MKPinAnnotationView *)[aMapView dequeueReusableAnnotationViewWithIdentifier:identifier];
@@ -283,14 +285,14 @@
 		pinView = [[[MKPinAnnotationView alloc] initWithAnnotation:annotation reuseIdentifier:identifier] autorelease];
 	 
 		pinView.canShowCallout = YES;
-		//pinView.image = newImage;
-		pinView.image = [UIImage imageNamed:identifier];
+		pinView.image = newImage;
+		//pinView.image = [UIImage imageNamed:identifier];
 		pinView.calloutOffset = (CGPoint){ 0, 0 };
 
 	}
 	
 	pinView.annotation = annotation;
-	//newImage = nil;
+	newImage = nil;
     return pinView;
 
 }
@@ -298,25 +300,30 @@
 + (NSString *) imageNameForAnnotationType:(MyAnnotationType)aType {
 
     switch (aType) {
-		
 		case AnnotationOneStarType: {
-			return @"myPin1";
+			return @"bubble02";
 			break;
-		}
-		
+		}		
 		case AnnotationTwoStarsType: {
-			return @"myPin2";
+			return @"bubble05";
 			break;
 		}
 		
 		case AnnotationThreeStarsType: {
-			return @"myPin3";
+			return @"bubble07";
 			break;
 		}
-
+		case AnnotationFourStarsType: {
+			return @"bubble08";
+			break;
+		}
+		case AnnotationFiveStarsType: {
+			return @"bubble11";
+			break;
+		}
 		default:
 		case AnnotationUnknownType: {
-			return @"myPin0";
+			return @"bubble10";
 			break;
 		}
     }
@@ -324,5 +331,6 @@
 	return nil;
 
 }
+
 
 @end

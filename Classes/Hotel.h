@@ -33,4 +33,5 @@
 @property (nonatomic, retain) NSNumber * favorites;
 @property (nonatomic, retain) NSNumber * costStay;
 @property (nonatomic, retain) NSNumber * costRest;
+@property (nonatomic, retain) NSDate   * useDate;
 @end
