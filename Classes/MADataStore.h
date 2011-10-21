@@ -13,6 +13,10 @@
 #import "Hotel.h"
 
 @interface MADataStore : NSObject
+{
+
+}
+
 
 + (id) defaultStore;
 - (NSManagedObjectContext *) disposableMOC;

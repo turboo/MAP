@@ -11,12 +11,10 @@
 
 @implementation MapAppDelegate
 @synthesize window;
-
 - (BOOL) application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {    
 
 	if (![MADataStore hasPerformedInitialImport])
 		[[MADataStore defaultStore] importData];
-
 	MapViewController *mapViewController = [[[MapViewController alloc] init] autorelease];
 	UINavigationController *rootNavController = [[[UINavigationController alloc] initWithRootViewController:mapViewController] autorelease];
 	[rootNavController.navigationBar setBarStyle:UIBarStyleBlackTranslucent];

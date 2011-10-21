@@ -11,6 +11,11 @@
 #import "Hotel.h"
 #import "MADataStore.h"
 #import "CombineImages.h"
+#import "StreetView.h"
+#import "testViewController.h"
+
+#define BTN_MAP_TITLE @"MAP"
+#define BTN_StreetView_TITLE @"StreetView"
 
 @interface MapViewController () <NSFetchedResultsControllerDelegate>
 
@@ -101,7 +106,7 @@
 }
 
 - (void) dealloc {
-	//[newImage release];
+
 	[managedObjectContext release];
 	[fetchedResultsController release];
 	[mapView release];
@@ -266,14 +271,12 @@
 	}
 
 	NSString * identifier = [[self class] imageNameForAnnotationType:annotation.type];
-	
 
-	CombineImages *temp=[[CombineImages alloc] init];
-
-
-	//UIImage *newImage = [temp addText2Image:[UIImage imageNamed:identifier] addText:( annotation.costStay == 0 ) ?  [NSString stringWithFormat:@"(不提供)"]:[NSString stringWithFormat:@"%@起..",annotation.costStay] ];
-	UIImage *newImage = [temp addText2Image:[UIImage imageNamed:identifier] addText:( annotation.costStay.integerValue == 0 ) ?  [NSString stringWithFormat:@"(?)"]:[NSString stringWithFormat:@"NT:%@",annotation.costStay] ];
-
+	CombineImages *processImage=[[CombineImages alloc] init];
+  
+	//中文字元會有問題
+	//UIImage *newPinImage = [temp addText2Image:[UIImage imageNamed:identifier] addText:( annotation.costStay == 0 ) ?  [NSString stringWithFormat:@"(不提供)"]:[NSString stringWithFormat:@"%@起..",annotation.costStay] ];
+	UIImage *newPinImage = [processImage addText2Image:[UIImage imageNamed:identifier] addText:( annotation.costStay.integerValue == 0 ) ?  [NSString stringWithFormat:@"(?)"]:[NSString stringWithFormat:@"NT:%@",annotation.costStay] ];
 
 	MKPinAnnotationView *pinView = (MKPinAnnotationView *)[aMapView dequeueReusableAnnotationViewWithIdentifier:identifier];
 	
@@ -281,40 +284,92 @@
 	
 		pinView = [[[MKPinAnnotationView alloc] initWithAnnotation:annotation reuseIdentifier:identifier] autorelease];
 		pinView.canShowCallout = YES;
-		pinView.image = newImage;
+		pinView.image = newPinImage;
 		//pinView.image = [UIImage imageNamed:identifier];
 		pinView.calloutOffset = (CGPoint){ 0, 0 };
 
 	}
-	pinView.rightCalloutAccessoryView = [UIButton buttonWithType:UIButtonTypeDetailDisclosure];
-	pinView.LeftCalloutAccessoryView = [UIButton buttonWithType:UIButtonTypeCustom];
-	//pinView.leftCalloutAccessoryView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"image.png"]];
-	pinView.annotation = annotation;
-	newImage = nil;
-    return pinView;
 
+
+
+	UIButton *myLeftButton = [UIButton buttonWithType:UIButtonTypeCustom];
+	myLeftButton.frame = CGRectMake(0, 0, 25, 25);
+	myLeftButton.contentVerticalAlignment = UIControlContentVerticalAlignmentCenter;
+	myLeftButton.contentHorizontalAlignment = UIControlContentHorizontalAlignmentCenter;
+
+	// Set the image for the button
+	[myLeftButton setImage:[UIImage imageNamed:@"StreetView"] forState:UIControlStateNormal];
+	[myLeftButton addTarget:self action:@selector(showStreetView:) forControlEvents:UIControlEventTouchUpInside];
+	NSLog(@"myLeftButton.description = %@" ,  myLeftButton.description);
+	NSLog(@"myLeftButton.tag = %@" ,  myLeftButton.tag);
+
+
+	pinView.rightCalloutAccessoryView = [UIButton buttonWithType:UIButtonTypeDetailDisclosure];
+ 	pinView.leftCalloutAccessoryView = myLeftButton;
+	pinView.annotation = annotation;
+	
+	//streetViewImage=nil;
+	newPinImage = nil;
+	processImage= nil;
+//	leftImage=nil;
+//  [leftImageView release];
+//	[newPinImage release];
+	return pinView;
 }
 
 
--(void)mapView:(MKMapView *)mapView annotationView:(MyAnnotation *)pinView calloutAccessoryControlTapped:(UIControl *)control{
+-(void)mapView:(MKMapView *)mapView annotationView:(MKAnnotationView *)pinView calloutAccessoryControlTapped:(UIControl *)control{
 	NSLog(@"switch to detail view%@",[pinView description]);
 	//[pinView.coordinate.latitude ]
-	NSLog(@"latitude : %@",pinView.description);
+	//NSLog(@"switch to detail view%@",[pinView.latitude]);
 	
-	
-//    [[[[UIAlertView alloc] initWithTitle:pinView.title 
-//                                 message:pinView.subtitle 
-//                                delegate:nil
-//                       cancelButtonTitle:@"OK"
-//                       otherButtonTitles:nil, nil] 
-//      autorelease];
-//	
-	
-	
-	
+	testViewController *myTextVC = [[[testViewController alloc]initWithNibName:@"testViewController" bundle:nil]autorelease];
 
+  [self.navigationController pushViewController:myTextVC animated:NO];
 
+/*
+
+*/
 }
+
+- (IBAction)showStreetView:(id)sender
+{
+  UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"left" message:@"left Message" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
+ 
+  [alert show];
+  [alert release];
+  
+  
+  	//testViewController *myTextVC = [[[testViewController alloc]initWithNibName:@"testViewController" bundle:nil]autorelease];
+	//StreetView *myStVC = [[[StreetView alloc]init] autorelease];
+	//myStVC.myloc = loc;
+
+	//[self.navigationController pushViewController:[myStVC showStreetViewfromWebView] animated:NO];
+  
+
+  
+//	double_t latitude = ((UIButton *)sender).tag;
+//	double_t longitude = ((UIButton *)sender).tag;
+//	//NSLog(@"button tag value: %d", nrButtonPressed);
+//	if (self.StreetView == nil) {
+//		UIWebView *tmpWebViewController = [[UIWebView alloc] initWithNibName:@"StreetView" bundle:nil];
+//		self.StreetView = tmpWebViewController;
+//		
+//		[self.view addSubview:self.StreetView];
+//	}
+//	
+//	
+//
+//	[self.navigationController pushViewController:self.StreetView animated:YES];
+//	
+//
+//    self.navigationItem.rightBarButtonItem.title = BTN_MAP_TITLE;
+//    self.navigationItem.rightBarButtonItem.title = BTN_StreetView_TITLE;
+
+
+	
+}
+
 
 + (NSString *) imageNameForAnnotationType:(MyAnnotationType)aType {
 

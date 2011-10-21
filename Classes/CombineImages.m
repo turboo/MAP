@@ -58,8 +58,26 @@
     return [UIImage imageWithCGImage:imageMasked];
 }
 
-- (UIImage *)addText2Image2:(UIImage *)theImage addText:(NSString *)theText{
+// resize the original image and return a new UIImage object
 
-
+- (UIImage *)reSizeImage:(UIImage *)image toSize:(CGSize)reSize
+{
+  UIGraphicsBeginImageContext(CGSizeMake(reSize.width, reSize.height));
+  [image drawInRect:CGRectMake(0, 0, reSize.width, reSize.height)];
+  UIImage *reSizeImage = UIGraphicsGetImageFromCurrentImageContext();
+  UIGraphicsEndImageContext();
+  return reSizeImage;
 }
+
+
+- (UIImage *)Combine2Images:(UIImage *)image1 toImage:(UIImage *)image2
+{
+        UIGraphicsBeginImageContext(image1.size);
+        [image1 drawInRect:CGRectMake(0, 0, image1.size.width, image1.size.height)];
+        [image2 drawInRect:CGRectMake(0, 0, image2.size.width, image2.size.height)];
+        UIImage *resultingImage = UIGraphicsGetImageFromCurrentImageContext();
+        UIGraphicsEndImageContext();
+        return resultingImage;
+}
+
 @end

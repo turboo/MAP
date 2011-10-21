@@ -7,7 +7,17 @@
 //
 
 #import <Foundation/Foundation.h>
+#import <MapKit/MapKit.h>
 
-@interface StreetView : NSObject
+@interface StreetView : NSObject{
+	//CLLocationCoordinate2D *myLOC;
+	UIWebView *myWebView;
+}
 
+
+//@property (nonatomic , retain) CLLocationCoordinate2D *myLOC;
+@property (nonatomic , retain) UIWebView *myWebView;
+
+//-(UIWebView *)showStreetViewfromWebView:(CLLocationCoordinate2D  *)coordinate;
+-(UIWebView *)showStreetViewfromWebView;
 @end

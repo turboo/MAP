@@ -9,9 +9,10 @@
 #import <UIKit/UIKit.h>
 #import "MapViewController.h"
 
-@interface MapAppDelegate : NSObject <UIApplicationDelegate>
+@interface MapAppDelegate : NSObject <UIApplicationDelegate>{
+
+}
 
 @property (nonatomic, retain) IBOutlet UIWindow *window;
-
 @end
 

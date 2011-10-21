@@ -158,27 +158,27 @@
 		
 		Hotel *insertedHotel = [[[Hotel alloc] initWithEntity:hotelEntity insertIntoManagedObjectContext:context] autorelease];
 		
-		insertedHotel.odIdentifier		= fromInt(0);	
-		insertedHotel.displayName		= fromText(1);
-		insertedHotel.fax				= fromText(2);
-		insertedHotel.tel				= fromText(3);
-		insertedHotel.address			= fromText(4);
-		insertedHotel.longitude			= fromDouble(5);
-		insertedHotel.latitude			= fromDouble(6);
-		insertedHotel.ttIdentifier		= fromText(7);
-		insertedHotel.descriptionHTML	= fromText(8);
-		insertedHotel.areaCode			= fromInt(9);
-		insertedHotel.areaName			= fromText(10);
+		insertedHotel.odIdentifier      = fromInt(0);	
+		insertedHotel.displayName       = fromText(1);
+		insertedHotel.fax               = fromText(2);
+		insertedHotel.tel               = fromText(3);
+		insertedHotel.address           = fromText(4);
+		insertedHotel.longitude         = fromDouble(5);
+		insertedHotel.latitude          = fromDouble(6);
+		insertedHotel.ttIdentifier      = fromText(7);
+		insertedHotel.descriptionHTML   = fromText(8);
+		insertedHotel.areaCode          = fromInt(9);
+		insertedHotel.areaName          = fromText(10);
 		insertedHotel.modificationDate	= fromDate(11);
-		insertedHotel.email				= fromText(12);
+		insertedHotel.email             = fromText(12);
 
-		insertedHotel.hotelType			= fromInt(13);
+		insertedHotel.hotelType         = fromInt(13);
 		//insertedHotel.xmlUpdateDate		= fromDate(14);
-		//insertedHotel.imagesArray		= fromText(15);
-		insertedHotel.favorites			= fromBool(16);
-		insertedHotel.costStay			= fromInt(17);				
-		insertedHotel.costRest			= fromInt(18);
-		//insertedHotel.useDate		= fromDate(19);
+		//insertedHotel.imagesArray     = fromText(15);
+		insertedHotel.favorites         = fromBool(16);
+		insertedHotel.costStay          = fromInt(17);				
+		insertedHotel.costRest          = fromInt(18);
+		//insertedHotel.useDate         = fromDate(19);
 		
 
 	}
