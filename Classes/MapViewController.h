@@ -13,5 +13,5 @@
 @interface MapViewController : UIViewController <MKMapViewDelegate>
 
 @property (nonatomic, readonly, retain) MKMapView *mapView;
-- (IBAction)showStreetView:(id)sender;
+
 @end

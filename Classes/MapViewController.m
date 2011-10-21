@@ -17,7 +17,13 @@
 #define BTN_MAP_TITLE @"MAP"
 #define BTN_StreetView_TITLE @"StreetView"
 
+static const int kMapViewController_Accessory_StreetView = 1;
+static const int kMapViewController_Accessory_Disclose = 2;
+
 @interface MapViewController () <NSFetchedResultsControllerDelegate>
+
+- (void) showDetailsViewFromAnnotation:(id<MKAnnotation>)anAnnotation;
+- (void) showStreetViewFromAnnotation:(id<MKAnnotation>)anAnnotation;
 
 + (NSString *) imageNameForAnnotationType:(MyAnnotationType)aType;
 + (NSFetchRequest *) fetchRequestInContext:(NSManagedObjectContext *)aContext forCoordinateRegion:(MKCoordinateRegion)region;
@@ -114,7 +120,6 @@
 
 }
 
-
 - (void) viewDidLoad {
     
 	[super viewDidLoad];
@@ -129,69 +134,6 @@
     mapView.multipleTouchEnabled = YES;
     [mapView setRegion:hereIam animated:YES];
     
-//    MyAnnotation *annotation = [[[MyAnnotation alloc] init] autorelease];
-//    annotation.coordinate = hereIam.center;
-//    annotation.title = [NSString stringWithFormat:@"I AM Here %i", 0];
-//    annotation.subtitle = @"Here!";
-//    [mapView selectAnnotation:annotation animated:YES];
-
-//    
-//    NSMutableArray *annotations = [NSMutableArray array];
-//    
-//    for (int i = 1; i <= 30; i++){
-//
-//        MyAnnotation *annotation = [[MyAnnotation alloc] init];
-//        CLLocationCoordinate2D coordinate;
-//        
-//        if (i % 4 == 0) {
-//            
-//			coordinate.latitude  = mapView.centerCoordinate.latitude  + (float)(arc4random() % 8) / 1000;
-//            coordinate.longitude = mapView.centerCoordinate.longitude + (float)(arc4random() % 8) / 1000;
-//            annotation.type = AnnotationOneStarType;
-//			
-//        annotation.coordinate = coordinate;
-//        annotation.title = [NSString stringWithFormat:@"Title %i", i];
-//        annotation.subtitle = [NSString stringWithFormat:@"距離： %0.0f m", MapDistanceBetweenCoordinates(hereIam.center, coordinate)];
-//        [annotations addObject:annotation];
-//		
-//        [annotation release];
-//
-//    }
-//
-//	[mapView addAnnotations:annotations];
-//
-//
-//	
-}
-
-
-
-//-(MKAnnotationView *)mapView:(MKMapView *)amapView viewForAnnotation:(id<MKAnnotation>)annotation{
-//    MKPinAnnotationView *newAnnotation = [[MKPinAnnotationView alloc] initWithAnnotation:annotation reuseIdentifier:@"annotation1"];   
-//    newAnnotation.pinColor = MKPinAnnotationColorPurple;   
-//    newAnnotation.animatesDrop = YES;    
-//    //canShowCallout: to display the callout view by touch the pin   
-//    newAnnotation.canShowCallout=YES;   
-//       
-//    UIButton *button = [UIButton buttonWithType:UIButtonTypeDetailDisclosure];   
-//    [button addTarget:self action:@selector(checkButtonTapped:event:) forControlEvents:UIControlEventTouchUpInside];   
-//    newAnnotation.rightCalloutAccessoryView=button;    
-//  
-//    return newAnnotation;   
-//
-//}
-
-
-
-
-- (void) controllerDidChangeContent:(NSFetchedResultsController *)controller {
-
-	NSLog(@"controller did change content, to %@", self.fetchedResultsController.fetchedObjects);
-
-}
-
-- (void)mapView:(MKMapView *)mapView regionWillChangeAnimated:(BOOL)animated {
-
 }
 
 - (void) mapView:(MKMapView *)aMapView regionDidChangeAnimated:(BOOL)animated {
@@ -255,154 +197,104 @@
 
 	}];
 	
-	
 	[self.mapView addAnnotations:shownAnnotations];
 	
 }
 
-
 - (MKAnnotationView *) mapView:(MKMapView *)aMapView viewForAnnotation:(MyAnnotation *)annotation{
 
 	if (![annotation isKindOfClass:[MyAnnotation class]]) {
-	
 		NSLog(@"%s: Handle user location annotation view", __PRETTY_FUNCTION__);
-		return nil;
-	
+		return nil;	
 	}
-
+	
 	NSString * identifier = [[self class] imageNameForAnnotationType:annotation.type];
-
-	CombineImages *processImage=[[CombineImages alloc] init];
   
-	//中文字元會有問題
-	//UIImage *newPinImage = [temp addText2Image:[UIImage imageNamed:identifier] addText:( annotation.costStay == 0 ) ?  [NSString stringWithFormat:@"(不提供)"]:[NSString stringWithFormat:@"%@起..",annotation.costStay] ];
-	UIImage *newPinImage = [processImage addText2Image:[UIImage imageNamed:identifier] addText:( annotation.costStay.integerValue == 0 ) ?  [NSString stringWithFormat:@"(?)"]:[NSString stringWithFormat:@"NT:%@",annotation.costStay] ];
-
 	MKPinAnnotationView *pinView = (MKPinAnnotationView *)[aMapView dequeueReusableAnnotationViewWithIdentifier:identifier];
 	
 	if (!pinView) {
-	
+		
 		pinView = [[[MKPinAnnotationView alloc] initWithAnnotation:annotation reuseIdentifier:identifier] autorelease];
 		pinView.canShowCallout = YES;
-		pinView.image = newPinImage;
-		//pinView.image = [UIImage imageNamed:identifier];
-		pinView.calloutOffset = (CGPoint){ 0, 0 };
+		pinView.calloutOffset = CGPointZero;
+		
+		UIButton *leftCalloutButton = [UIButton buttonWithType:UIButtonTypeCustom];
+		leftCalloutButton.tag = kMapViewController_Accessory_StreetView;
+		[leftCalloutButton setImage:[UIImage imageNamed:@"StreetView"] forState:UIControlStateNormal];
+		[leftCalloutButton sizeToFit];
+		leftCalloutButton.frame = (CGRect){ 0, 0, 25, 25 };
+		pinView.leftCalloutAccessoryView = leftCalloutButton;
+		
+		UIButton *rightCalloutButton = [UIButton buttonWithType:UIButtonTypeDetailDisclosure];
+		rightCalloutButton.tag = kMapViewController_Accessory_Disclose;
+		pinView.rightCalloutAccessoryView = rightCalloutButton;
 
 	}
-
-
-
-	UIButton *myLeftButton = [UIButton buttonWithType:UIButtonTypeCustom];
-	myLeftButton.frame = CGRectMake(0, 0, 25, 25);
-	myLeftButton.contentVerticalAlignment = UIControlContentVerticalAlignmentCenter;
-	myLeftButton.contentHorizontalAlignment = UIControlContentHorizontalAlignmentCenter;
-
-	// Set the image for the button
-	[myLeftButton setImage:[UIImage imageNamed:@"StreetView"] forState:UIControlStateNormal];
-	[myLeftButton addTarget:self action:@selector(showStreetView:) forControlEvents:UIControlEventTouchUpInside];
-	NSLog(@"myLeftButton.description = %@" ,  myLeftButton.description);
-	NSLog(@"myLeftButton.tag = %@" ,  myLeftButton.tag);
-
-
-	pinView.rightCalloutAccessoryView = [UIButton buttonWithType:UIButtonTypeDetailDisclosure];
- 	pinView.leftCalloutAccessoryView = myLeftButton;
+	
+	NSUInteger price = [annotation.costStay unsignedIntValue];
+	
+	pinView.image = [[UIImage imageNamed:identifier] compositeImageWithOverlayText:
+		[NSString stringWithFormat:!price ?
+			@"(不提供)" :
+			[[annotation.costStay stringValue] stringByAppendingFormat:@" 起"]
+		]
+	];
+	
 	pinView.annotation = annotation;
 	
-	//streetViewImage=nil;
-	newPinImage = nil;
-	processImage= nil;
-//	leftImage=nil;
-//  [leftImageView release];
-//	[newPinImage release];
 	return pinView;
+
 }
 
+- (void) mapView:(MKMapView *)mapView annotationView:(MKAnnotationView *)annotationView calloutAccessoryControlTapped:(UIControl *)control{
 
--(void)mapView:(MKMapView *)mapView annotationView:(MKAnnotationView *)pinView calloutAccessoryControlTapped:(UIControl *)control{
-	NSLog(@"switch to detail view%@",[pinView description]);
-	//[pinView.coordinate.latitude ]
-	//NSLog(@"switch to detail view%@",[pinView.latitude]);
-	
-	testViewController *myTextVC = [[[testViewController alloc]initWithNibName:@"testViewController" bundle:nil]autorelease];
-
-  [self.navigationController pushViewController:myTextVC animated:NO];
-
-/*
-
-*/
-}
-
-- (IBAction)showStreetView:(id)sender
-{
-  UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"left" message:@"left Message" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
- 
-  [alert show];
-  [alert release];
-  
-  
-  	//testViewController *myTextVC = [[[testViewController alloc]initWithNibName:@"testViewController" bundle:nil]autorelease];
-	//StreetView *myStVC = [[[StreetView alloc]init] autorelease];
-	//myStVC.myloc = loc;
-
-	//[self.navigationController pushViewController:[myStVC showStreetViewfromWebView] animated:NO];
-  
-
-  
-//	double_t latitude = ((UIButton *)sender).tag;
-//	double_t longitude = ((UIButton *)sender).tag;
-//	//NSLog(@"button tag value: %d", nrButtonPressed);
-//	if (self.StreetView == nil) {
-//		UIWebView *tmpWebViewController = [[UIWebView alloc] initWithNibName:@"StreetView" bundle:nil];
-//		self.StreetView = tmpWebViewController;
-//		
-//		[self.view addSubview:self.StreetView];
-//	}
-//	
-//	
-//
-//	[self.navigationController pushViewController:self.StreetView animated:YES];
-//	
-//
-//    self.navigationItem.rightBarButtonItem.title = BTN_MAP_TITLE;
-//    self.navigationItem.rightBarButtonItem.title = BTN_StreetView_TITLE;
-
-
-	
-}
-
-
-+ (NSString *) imageNameForAnnotationType:(MyAnnotationType)aType {
-
-    switch (aType) {
-		case AnnotationOneStarType: {
-			return @"bubble02";
-			break;
-		}		
-		case AnnotationTwoStarsType: {
-			return @"bubble05";
+	switch (control.tag) {	
+		
+		case kMapViewController_Accessory_StreetView: {
+			[self showStreetViewFromAnnotation:annotationView.annotation];
 			break;
 		}
 		
-		case AnnotationThreeStarsType: {
-			return @"bubble07";
+		case kMapViewController_Accessory_Disclose: {
+			[self showDetailsViewFromAnnotation:annotationView.annotation];
 			break;
 		}
-		case AnnotationFourStarsType: {
-			return @"bubble08";
-			break;
-		}
-		case AnnotationFiveStarsType: {
-			return @"bubble11";
-			break;
-		}
-		default:
-		case AnnotationUnknownType: {
-			return @"bubble10";
-			break;
-		}
-    }
 	
-	return nil;
+	}
+
+}
+
+- (void) showDetailsViewFromAnnotation:(id<MKAnnotation>)anAnnotation {
+
+	TestViewController *testViewController = [[[TestViewController alloc] init] autorelease];
+	[self.navigationController pushViewController:testViewController animated:NO];
+
+}
+
+- (void) showStreetViewFromAnnotation:(id<MKAnnotation>)anAnnotation {
+
+	StreetViewController *streetViewController = [[[StreetViewController alloc] initWithCoordinate:[anAnnotation coordinate]] autorelease];
+	[self.navigationController pushViewController:streetViewController animated:YES];
+  
+}
+
++ (NSString *) imageNameForAnnotationType:(MyAnnotationType)aType {
+
+	return (((NSString *[]){
+		[AnnotationOneStarType] = @"bubble02",
+		[AnnotationTwoStarsType] = @"bubble05",
+		[AnnotationThreeStarsType] = @"bubble07",
+		[AnnotationFourStarsType] = @"bubble08",
+		[AnnotationFiveStarsType] = @"bubble11",
+		[AnnotationUnknownType] = @"bubble10",
+		[6] = @"bubble10",
+		[7] = @"bubble10",
+		[8] = @"bubble10",
+		[9] = @"bubble10",
+		[10] = @"bubble10",
+		[11] = @"bubble10",
+		[12] = @"bubble10",
+	})[aType]);
 
 }
 

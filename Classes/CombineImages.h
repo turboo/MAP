@@ -8,13 +8,10 @@
 
 #import <Foundation/Foundation.h>
 
-@interface CombineImages : NSObject
+@interface UIImage(MapAdditions)
 
-@property(nonatomic,retain)UIImage *theImage;
-@property(nonatomic,retain)NSString *theText;
+- (UIImage *) compositeImageWithOverlayText:(NSString *)theText;
+- (UIImage *) compositeImageWithOverlayImage:(UIImage *)image2;
+- (UIImage *) scaledImageWithSize:(CGSize)reSize;
 
-
-- (UIImage *)addText2Image:(UIImage *)theImage addText:(NSString *)theText;
-- (UIImage *)Combine2Images:(UIImage *)image1 toImage:(UIImage *)image2;
-- (UIImage *)reSizeImage:(UIImage *)image toSize:(CGSize)reSize;
 @end

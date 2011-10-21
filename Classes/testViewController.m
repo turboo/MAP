@@ -8,7 +8,7 @@
 
 #import "testViewController.h"
 
-@implementation testViewController
+@implementation TestViewController
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {

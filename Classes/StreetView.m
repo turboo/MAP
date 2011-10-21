@@ -1,5 +1,5 @@
 //
-//  StreetView.m
+//  StreetViewController.m
 //  Map
 //
 //  Created by App on 2011/10/20.
@@ -8,41 +8,63 @@
 
 #import "StreetView.h"
 
-@implementation StreetView
-//@synthesize myLOC;
-@synthesize myWebView;
+@interface StreetViewController ()
+@property (nonatomic, readwrite, retain) UIWebView *webView;
+@property (nonatomic, readwrite, assign) CLLocationCoordinate2D initialCoordinate;
+@end
 
-- (id)init
-{
-    self = [super init];
-    if (self) {
-        // Initialization code here.
-    }
-    
-    return self;
+@implementation StreetViewController
+@synthesize webView, initialCoordinate;
+
+- (id) initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
+
+	return [self initWithCoordinate:(CLLocationCoordinate2D){ 0, 0 }];
+
 }
-//-(UIWebView *)showStreetViewfromWebView:(CLLocationCoordinate2D  *)coordinate{ 
--(UIWebView *)showStreetViewfromWebView{
-	UIWebView *streetView = [[[UIWebView alloc]init] autorelease];
+
+- (id) initWithCoordinate:(CLLocationCoordinate2D)coordinate {
+
+	self = [super initWithNibName:nil bundle:nil];
+	if (!self)
+		return nil;
 	
-	streetView.frame = CGRectMake(0,0, 400, 400);
-//  NSNumber *streetViewlatitude = coordinate.latitude;
-//  NSNumber *streetViewlongitude = coordinate.longitude;
-  double_t streetViewlatitude = 25.041349;
-  double_t streetViewlongitude = 121.557802;
+	self.initialCoordinate = coordinate;
+	
+	return self;
 
-	NSString *htmlString = [NSString stringWithFormat:@"<html>\
-							<head>\
-							<meta id=\"viewport\" name=\"viewport\" content=\"width=device-width; initial-scale=1.0; maximum-scale=1.0; user-scalable=0;\">\
-							<script src='http://maps.google.com/maps/api/js?sensor=false' type='text/javascript'></script>\
-							</head>\
-							<body onload=\"new google.maps.StreetViewPanorama(document.getElementById('p'),{position:new google.maps.LatLng(%f, %f)});\" style='padding:0px;margin:0px;'>\
-							<div id='p' style='height:460;width:320;'></div>\
-							</body>\
-							</html>",streetViewlatitude,streetViewlongitude];  
-	[streetView loadHTMLString:htmlString baseURL:nil];
-	//[self.view addSubview:streetView];
-	return streetView;
-	[streetView release];
 }
+
+- (void) loadView {
+
+	self.webView = [[[UIWebView alloc] initWithFrame:CGRectZero] autorelease];
+	self.view = webView;
+	
+}
+
+- (void) viewDidLoad {
+
+	[super viewDidLoad];
+	
+	NSString *loadedString = [NSString stringWithFormat:
+	
+		@"<html>"
+		@"<head>"
+			@"<meta id='viewport' name='viewport' content='width=device-width; initial-scale=1.0; maximum-scale=1.0; user-scalable=0;'>"
+			@"<script src='http://maps.google.com/maps/api/js?sensor=false' type='text/javascript'></script>"
+		@"</head><body "
+			@"onload=\"new google.maps.StreetViewPanorama(document.getElementById('p'),{ position:(new google.maps.LatLng(%f, %f)) });\""
+			@"style='padding:0px; margin:0px;'"
+		@">"
+			@"<div id='p' style='height:460;width:320;'></div>"
+		@"</body></html>",
+		
+		self.initialCoordinate.latitude,
+		self.initialCoordinate.longitude
+		
+	];
+
+	[self.webView loadHTMLString:loadedString baseURL:nil];
+
+}
+
 @end
