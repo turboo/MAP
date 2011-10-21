@@ -194,30 +194,5 @@
 }
 
 
-- (void) test {
-
-	NSLog(@"start select Hotel Data "); 
-	Hotel *thisHotel=(Hotel *)[NSEntityDescription insertNewObjectForEntityForName:@"Hotel" inManagedObjectContext:[self managedObjectContext]]; 
-	thisHotel.displayName=@"康華大飯店";
-
-	NSError *error;
-
-	if (![[self managedObjectContext] save:&error]) { 
-		NSLog(@"error!"); 
-	}else { 
-		NSLog(@"save data ok."); 
-	}
-
-	NSFetchRequest *request=[[NSFetchRequest alloc] init]; 
-	NSEntityDescription *entity=[NSEntityDescription entityForName:@"Hotel" inManagedObjectContext:[self managedObjectContext]]; 
-	[request setEntity:entity];
-
-	NSArray *results=[[[self managedObjectContext] executeFetchRequest:request error:&error] copy];
-
-	for (Hotel *p in results) { 
-		NSLog(@">> p.odIdentifier: %i p.displayName: %@",p.odIdentifier,p.displayName); 
-	}	
-
-}
 
 @end

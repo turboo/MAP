@@ -230,13 +230,14 @@ static const int kMapViewController_Accessory_Disclose = 2;
 		pinView.rightCalloutAccessoryView = rightCalloutButton;
 
 	}
-	
+
 	NSUInteger price = [annotation.costStay unsignedIntValue];
 	
 	pinView.image = [[UIImage imageNamed:identifier] compositeImageWithOverlayText:
 		[NSString stringWithFormat:!price ?
-			@"(不提供)" :
-			[[annotation.costStay stringValue] stringByAppendingFormat:@" 起"]
+			@"(未提供價格)" :
+			//[[annotation.costStay stringValue] stringByAppendingFormat:@" 起"]
+			@"NT:%5i↑",[annotation.costStay intValue] 
 		]
 	];
 	
