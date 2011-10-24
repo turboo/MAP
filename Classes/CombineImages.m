@@ -15,12 +15,16 @@
 	UIGraphicsBeginImageContextWithOptions(self.size, NO, 0.0f);
 	UIFont *usedFont = [UIFont systemFontOfSize:12];
 	
-	CGRect imageRect = (CGRect){ CGPointZero, self.size };
+	//CGRect imageRect = (CGRect){ CGPointZero, self.size };
+
+	CGRect imageRect = (CGRect){ CGPointZero,{self.size.width-10,self.size.height-10} };
+	
+
 	CGSize textSize = [incomingText sizeWithFont:usedFont];
 	CGRect textRect = (CGRect){
 		(CGPoint){
 			roundf(0.5f * (CGRectGetWidth(imageRect) - textSize.width)),
-			roundf(0.5f * (CGRectGetHeight(imageRect) - textSize.height))
+			roundf(0.4f * (CGRectGetHeight(imageRect) - textSize.height))
 		},
 		textSize
 	};

@@ -10,7 +10,9 @@
 #import <MapKit/MapKit.h>
 #import "MyAnnotation.h"
 
-@interface MapViewController : UIViewController <MKMapViewDelegate>
+@interface MapViewController : UIViewController <MKMapViewDelegate>{
+
+}
 
 @property (nonatomic, readonly, retain) MKMapView *mapView;
 

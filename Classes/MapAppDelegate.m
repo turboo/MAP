@@ -34,5 +34,32 @@
 	
 }
 
+- (void)reachabilityChanged:(NSNotification *)note {
+  Reachability* curReach = [note object];
+  NSParameterAssert([curReach isKindOfClass: [Reachability class]]);
+  NetworkStatus status = [curReach currentReachabilityStatus];
+  
+  if (status == NotReachable) {
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"睏豆"
+                                                    message:@"請檢查網路是否正常連線！"
+                                                   delegate:nil
+                                          cancelButtonTitle:@"YES" otherButtonTitles:nil];
+    [alert show];
+    [alert release];
+  }
+}
+
+- (void)applicationDidFinishLaunching:(UIApplication *)application {
+  // ...
+  
+  // 監測網路狀況 （因為用到google地圖 所以用 maps.google.com）
+  [[NSNotificationCenter defaultCenter] addObserver:self
+                                           selector:@selector(reachabilityChanged:)
+                                               name: kReachabilityChangedNotification
+                                             object: nil];
+  hostReach = [[Reachability reachabilityWithHostName:@"maps.google.com"] retain];
+  [hostReach startNotifer];
+  // ...
+}
 
 @end

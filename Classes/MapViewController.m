@@ -58,9 +58,12 @@ static const int kMapViewController_Accessory_Disclose = 2;
 		
 	fetchRequest.sortDescriptors = [NSArray arrayWithObjects:
 		
-		[NSSortDescriptor sortDescriptorWithKey:@"modificationDate" ascending:YES],
-		
-	nil];
+	[NSSortDescriptor sortDescriptorWithKey:@"modificationDate" ascending:YES],nil];
+	
+
+	//找出的資料筆數
+	//NSUInteger numberOfApartments = [aContext countForFetchRequest:fetchRequest error:nil];
+
 	
 	return fetchRequest;
 
@@ -102,6 +105,17 @@ static const int kMapViewController_Accessory_Disclose = 2;
 - (void) loadView {
 
 	[super loadView];
+  
+  //檢查網路狀態
+/*  
+  
+  NotReachable = 0,            //無連接網路
+  ReachableViaWiFi,            //使用3G/GPRS網路
+  ReachableViaWWAN             //使用WiFi網路
+  
+ NetworkStatus;               //定義網路狀態
+*/
+  
 
     mapView = [[MKMapView alloc] initWithFrame:self.view.bounds];
 	mapView.autoresizingMask = UIViewAutoresizingFlexibleWidth|UIViewAutoresizingFlexibleHeight;
@@ -123,17 +137,26 @@ static const int kMapViewController_Accessory_Disclose = 2;
 - (void) viewDidLoad {
     
 	[super viewDidLoad];
-        
-	const MKCoordinateRegion hereIam = (MKCoordinateRegion){
-		(CLLocationCoordinate2D) { 25.041349, 121.557802 },
-		(MKCoordinateSpan) { 0.006, 0.006 }
-	};
-    
     mapView.showsUserLocation = YES;
     mapView.zoomEnabled = YES;
     mapView.multipleTouchEnabled = YES;
-    [mapView setRegion:hereIam animated:YES];
+	mapView.mapType = MKMapTypeStandard;
+    mapView.scrollEnabled = YES;
+
+	double X = mapView.userLocation.coordinate.latitude;
+    double Y = mapView.userLocation.coordinate.longitude;
+	NSLog(@"X:Y=%f:%f",X , Y);
+	
+	//取得現在位置
+	const MKCoordinateRegion hereIam = (MKCoordinateRegion){
+		(CLLocationCoordinate2D) {	25.041349, 121.557802 },
+		//mapView.userLocation.location.coordinate,
+		(MKCoordinateSpan) { 0.006, 0.006 }
+	};
     
+
+    [mapView setRegion:hereIam animated:YES];
+
 }
 
 - (void) mapView:(MKMapView *)aMapView regionDidChangeAnimated:(BOOL)animated {
@@ -157,6 +180,7 @@ static const int kMapViewController_Accessory_Disclose = 2;
 
 	NSArray *shownHotels = self.fetchedResultsController.fetchedObjects;
 	NSMutableArray *shownAnnotations = [NSMutableArray arrayWithCapacity:[shownHotels count]];
+
 	for (unsigned int i = 0; i < [shownHotels count]; i++)
 		[shownAnnotations addObject:[NSNull null]];
 
@@ -232,12 +256,12 @@ static const int kMapViewController_Accessory_Disclose = 2;
 	}
 
 	NSUInteger price = [annotation.costStay unsignedIntValue];
-	
+
 	pinView.image = [[UIImage imageNamed:identifier] compositeImageWithOverlayText:
 		[NSString stringWithFormat:!price ?
-			@"(未提供價格)" :
+			@"未提供" :
 			//[[annotation.costStay stringValue] stringByAppendingFormat:@" 起"]
-			@"NT:%5i↑",[annotation.costStay intValue] 
+			@"NT:%5i",[annotation.costStay intValue] 
 		]
 	];
 	
