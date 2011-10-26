@@ -12,7 +12,7 @@
 #import "MADataStore.h"
 #import "CombineImages.h"
 #import "StreetView.h"
-#import "testViewController.h"
+
 
 #define BTN_MAP_TITLE @"MAP"
 #define BTN_StreetView_TITLE @"StreetView"
@@ -22,7 +22,8 @@ static const int kMapViewController_Accessory_Disclose = 2;
 
 @interface MapViewController () <NSFetchedResultsControllerDelegate>
 
-- (void) showDetailsViewFromAnnotation:(id<MKAnnotation>)anAnnotation;
+//- (void) showDetailsViewFromAnnotation:(id<MKAnnotation>)anAnnotation;
+- (void) showDetailsViewFromAnnotation:(NSNumber *)HotelID;
 - (void) showStreetViewFromAnnotation:(id<MKAnnotation>)anAnnotation;
 
 + (NSString *) imageNameForAnnotationType:(MyAnnotationType)aType;
@@ -56,11 +57,11 @@ static const int kMapViewController_Accessory_Disclose = 2;
 	
 	fetchRequest.predicate = [NSPredicate predicateWithFormat:@"(latitude >= %f) AND (latitude <= %f) AND (longitude >= %f) AND longitude <= %f", minLat, maxLat, minLng, maxLng];
 		
-	fetchRequest.sortDescriptors = [NSArray arrayWithObjects:
-		
-	[NSSortDescriptor sortDescriptorWithKey:@"modificationDate" ascending:YES],nil];
-	
+	//fetchRequest.sortDescriptors = [NSArray arrayWithObjects:[NSSortDescriptor sortDescriptorWithKey:@"modificationDate" ascending:YES],nil];
 
+  fetchRequest.sortDescriptors = [NSArray arrayWithObjects:[NSSortDescriptor sortDescriptorWithKey:@"costStay" ascending:NO],nil];
+    
+  
 	//找出的資料筆數
 	//NSUInteger numberOfApartments = [aContext countForFetchRequest:fetchRequest error:nil];
 
@@ -143,9 +144,9 @@ static const int kMapViewController_Accessory_Disclose = 2;
 	mapView.mapType = MKMapTypeStandard;
     mapView.scrollEnabled = YES;
 
-	double X = mapView.userLocation.coordinate.latitude;
-    double Y = mapView.userLocation.coordinate.longitude;
-	NSLog(@"X:Y=%f:%f",X , Y);
+//	double X = mapView.userLocation.coordinate.latitude;
+//    double Y = mapView.userLocation.coordinate.longitude;
+//	NSLog(@"X:Y=%f:%f",X , Y);
 	
 	//取得現在位置
 	const MKCoordinateRegion hereIam = (MKCoordinateRegion){
@@ -212,13 +213,14 @@ static const int kMapViewController_Accessory_Disclose = 2;
 			[aHotel.latitude doubleValue],
 			[aHotel.longitude doubleValue]
 		};
-		
+
+		annotation.odIdentifier = aHotel.odIdentifier;
 		annotation.title = aHotel.displayName;
 		annotation.type = aHotel.areaCode.integerValue;
 		annotation.costStay = aHotel.costStay;
 		annotation.costRest = aHotel.costRest;
 		annotation.representedObject = aHotel;
-
+    NSLog(@"CostStay = %@",aHotel.costStay);
 	}];
 	
 	[self.mapView addAnnotations:shownAnnotations];
@@ -237,7 +239,9 @@ static const int kMapViewController_Accessory_Disclose = 2;
 	MKPinAnnotationView *pinView = (MKPinAnnotationView *)[aMapView dequeueReusableAnnotationViewWithIdentifier:identifier];
 	
 	if (!pinView) {
-		
+
+		pinView.tag = annotation.odIdentifier;
+
 		pinView = [[[MKPinAnnotationView alloc] initWithAnnotation:annotation reuseIdentifier:identifier] autorelease];
 		pinView.canShowCallout = YES;
 		pinView.calloutOffset = CGPointZero;
@@ -281,7 +285,11 @@ static const int kMapViewController_Accessory_Disclose = 2;
 		}
 		
 		case kMapViewController_Accessory_Disclose: {
-			[self showDetailsViewFromAnnotation:annotationView.annotation];
+		
+
+			 NSLog(@"Hotel title : %s",annotationView.tag);
+		
+			//[self showDetailsViewFromAnnotation:annotationView.annotation];
 			break;
 		}
 	
@@ -289,10 +297,11 @@ static const int kMapViewController_Accessory_Disclose = 2;
 
 }
 
-- (void) showDetailsViewFromAnnotation:(id<MKAnnotation>)anAnnotation {
+- (void) showDetailsViewFromAnnotation:(NSNumber *)HotelID {
 
-	TestViewController *testViewController = [[[TestViewController alloc] init] autorelease];
-	[self.navigationController pushViewController:testViewController animated:NO];
+	UITableViewController *DetailsViewController = [[[UITableViewController alloc] init] autorelease];
+	[self.navigationController pushViewController:DetailsViewController animated:NO];
+	self.navigationController.title = HotelID;
 
 }
 

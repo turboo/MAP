@@ -28,6 +28,7 @@ enum {
 @interface MyAnnotation : NSObject <MKAnnotation>
 
 @property (nonatomic, readwrite, assign) CLLocationCoordinate2D coordinate;
+@property (nonatomic, readwrite, copy) NSNumber *odIdentifier;
 @property (nonatomic, readwrite, copy) NSString *title;
 @property (nonatomic, readwrite, copy) NSString *subtitle;
 @property (nonatomic, readwrite, copy) NSNumber *costStay;

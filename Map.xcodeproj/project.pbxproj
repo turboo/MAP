@@ -20,6 +20,7 @@
 		A923A83A1451BBF000EC5198 /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = A923A8391451BBF000EC5198 /* Reachability.m */; };
 		A923A83D1451C6CD00EC5198 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A923A83C1451C6CD00EC5198 /* SystemConfiguration.framework */; };
 		A9B52CE6145099A100F84479 /* StreetView.png in Resources */ = {isa = PBXBuildFile; fileRef = A9B52CE5145099A100F84479 /* StreetView.png */; };
+		DD10B4FB1455351A00738471 /* SearchHotelQuery.m in Sources */ = {isa = PBXBuildFile; fileRef = DD10B4FA1455351A00738471 /* SearchHotelQuery.m */; };
 		DD1A712F144FF0C400418718 /* bubble01.png in Resources */ = {isa = PBXBuildFile; fileRef = DD1A7119144FF0C300418718 /* bubble01.png */; };
 		DD1A7130144FF0C400418718 /* bubble01@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = DD1A711A144FF0C300418718 /* bubble01@2x.png */; };
 		DD1A7131144FF0C400418718 /* bubble02.png in Resources */ = {isa = PBXBuildFile; fileRef = DD1A711B144FF0C300418718 /* bubble02.png */; };
@@ -52,8 +53,6 @@
 		DD8D7A64144BCFFC00E691E2 /* Hotel.m in Sources */ = {isa = PBXBuildFile; fileRef = DD8D7A63144BCFFC00E691E2 /* Hotel.m */; };
 		DDC78EB01447EE4B00DA9B60 /* MapDefines.m in Sources */ = {isa = PBXBuildFile; fileRef = DDC78EAF1447EE4B00DA9B60 /* MapDefines.m */; };
 		DDFE27E51450FFFF001BA208 /* WB.jpeg in Resources */ = {isa = PBXBuildFile; fileRef = DDFE27E41450FFFF001BA208 /* WB.jpeg */; };
-		DDFE27EE145125B9001BA208 /* testViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DDFE27EC145125B8001BA208 /* testViewController.m */; };
-		DDFE27EF145125B9001BA208 /* testViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = DDFE27ED145125B8001BA208 /* testViewController.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -77,6 +76,8 @@
 		A923A8391451BBF000EC5198 /* Reachability.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Reachability.m; sourceTree = "<group>"; };
 		A923A83C1451C6CD00EC5198 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		A9B52CE5145099A100F84479 /* StreetView.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = StreetView.png; sourceTree = "<group>"; };
+		DD10B4F91455351A00738471 /* SearchHotelQuery.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SearchHotelQuery.h; sourceTree = "<group>"; };
+		DD10B4FA1455351A00738471 /* SearchHotelQuery.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SearchHotelQuery.m; sourceTree = "<group>"; };
 		DD1A7119144FF0C300418718 /* bubble01.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = bubble01.png; sourceTree = "<group>"; };
 		DD1A711A144FF0C300418718 /* bubble01@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "bubble01@2x.png"; sourceTree = "<group>"; };
 		DD1A711B144FF0C300418718 /* bubble02.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = bubble02.png; sourceTree = "<group>"; };
@@ -117,9 +118,6 @@
 		DDC78EAE1447EE4B00DA9B60 /* MapDefines.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MapDefines.h; path = ../../../Project/Map/Classes/MapDefines.h; sourceTree = "<group>"; };
 		DDC78EAF1447EE4B00DA9B60 /* MapDefines.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MapDefines.m; path = ../../../Project/Map/Classes/MapDefines.m; sourceTree = "<group>"; };
 		DDFE27E41450FFFF001BA208 /* WB.jpeg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = WB.jpeg; sourceTree = "<group>"; };
-		DDFE27EB145125B8001BA208 /* testViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = testViewController.h; sourceTree = "<group>"; };
-		DDFE27EC145125B8001BA208 /* testViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = testViewController.m; sourceTree = "<group>"; };
-		DDFE27ED145125B8001BA208 /* testViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = testViewController.xib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -162,9 +160,8 @@
 				211C2F9911F04BC20003F933 /* MyAnnotation.m */,
 				DD1A715514501AC800418718 /* StreetView.h */,
 				DD1A715614501AC800418718 /* StreetView.m */,
-				DDFE27EB145125B8001BA208 /* testViewController.h */,
-				DDFE27EC145125B8001BA208 /* testViewController.m */,
-				DDFE27ED145125B8001BA208 /* testViewController.xib */,
+				DD10B4F91455351A00738471 /* SearchHotelQuery.h */,
+				DD10B4FA1455351A00738471 /* SearchHotelQuery.m */,
 			);
 			path = Classes;
 			sourceTree = "<group>";
@@ -331,7 +328,6 @@
 				DD1A7144144FF0C400418718 /* bubble11@2x.png in Resources */,
 				A9B52CE6145099A100F84479 /* StreetView.png in Resources */,
 				DDFE27E51450FFFF001BA208 /* WB.jpeg in Resources */,
-				DDFE27EF145125B9001BA208 /* testViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -352,8 +348,8 @@
 				DD8D7A64144BCFFC00E691E2 /* Hotel.m in Sources */,
 				DD7514FE144E832000F39767 /* CombineImages.m in Sources */,
 				DD1A715714501AC800418718 /* StreetView.m in Sources */,
-				DDFE27EE145125B9001BA208 /* testViewController.m in Sources */,
 				A923A83A1451BBF000EC5198 /* Reachability.m in Sources */,
+				DD10B4FB1455351A00738471 /* SearchHotelQuery.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

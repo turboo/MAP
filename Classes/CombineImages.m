@@ -44,28 +44,28 @@
 }
 
 
-- (UIImage *) compositeImageWithOverlayImage:(UIImage *)image2 { 
-
-	UIGraphicsBeginImageContext(self.size);
-	[self drawInRect:CGRectMake(0, 0, self.size.width, self.size.height)];
-	[image2 drawInRect:CGRectMake(0, 0, image2.size.width, image2.size.height)];
-	UIImage *resultingImage = UIGraphicsGetImageFromCurrentImageContext();
-	UIGraphicsEndImageContext();
-	
-	return resultingImage;
-	
-}
-
-
-- (UIImage *) scaledImageWithSize:(CGSize)reSize {
-
-	UIGraphicsBeginImageContext(CGSizeMake(reSize.width, reSize.height));
-	[self drawInRect:CGRectMake(0, 0, reSize.width, reSize.height)];
-	UIImage *reSizeImage = UIGraphicsGetImageFromCurrentImageContext();
-	UIGraphicsEndImageContext();
-	
-	return reSizeImage;
-	
-}
+//- (UIImage *) compositeImageWithOverlayImage:(UIImage *)image2 { 
+//
+//	UIGraphicsBeginImageContext(self.size);
+//	[self drawInRect:CGRectMake(0, 0, self.size.width, self.size.height)];
+//	[image2 drawInRect:CGRectMake(0, 0, image2.size.width, image2.size.height)];
+//	UIImage *resultingImage = UIGraphicsGetImageFromCurrentImageContext();
+//	UIGraphicsEndImageContext();
+//	
+//	return resultingImage;
+//	
+//}
+//
+//
+//- (UIImage *) scaledImageWithSize:(CGSize)reSize {
+//
+//	UIGraphicsBeginImageContext(CGSizeMake(reSize.width, reSize.height));
+//	[self drawInRect:CGRectMake(0, 0, reSize.width, reSize.height)];
+//	UIImage *reSizeImage = UIGraphicsGetImageFromCurrentImageContext();
+//	UIGraphicsEndImageContext();
+//	
+//	return reSizeImage;
+//	
+//}
 
 @end

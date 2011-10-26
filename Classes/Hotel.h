@@ -13,9 +13,9 @@
 @interface Hotel : NSManagedObject {
 @private
 }
-@property (nonatomic, retain) NSString * address;
-@property (nonatomic, retain) NSNumber * areaCode;
-@property (nonatomic, retain) NSString * areaName;
+@property (nonatomic, retain) NSString * address;				//旅館地址
+@property (nonatomic, retain) NSNumber * areaCode;				//行政區號碼
+@property (nonatomic, retain) NSString * areaName;				//行政區名稱
 @property (nonatomic, retain) NSString * descriptionHTML;
 @property (nonatomic, retain) NSString * displayName;
 @property (nonatomic, retain) NSString * email;

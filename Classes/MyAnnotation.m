@@ -10,11 +10,13 @@
 
 @implementation MyAnnotation
 
+@synthesize odIdentifier;
 @synthesize coordinate, title, subtitle, type, representedObject;
 @synthesize costRest,costStay;
 
 - (void) dealloc {
-    
+
+    [odIdentifier release];
     [title release];
     [subtitle release];
 	[costRest release];
