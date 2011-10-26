@@ -22,7 +22,7 @@
 @synthesize persistentStoreCoordinator, managedObjectModel;
 
 + (id) defaultStore {
-
+NSLog(@"MA - defaultStore ");
 	static id returnedObject = nil;
 	static dispatch_once_t onceToken = 0;
 	dispatch_once(&onceToken, ^{
@@ -42,7 +42,7 @@
 }
 
 - (NSManagedObjectModel *) managedObjectModel {
-
+NSLog(@"MA - managedObjectModel ");
 	if (managedObjectModel)
 		return managedObjectModel;
 		
@@ -55,7 +55,7 @@
 }
 
 - (NSPersistentStoreCoordinator *) persistentStoreCoordinator {
-
+NSLog(@"MA - persistentStoreCoordinator ");
 	if (persistentStoreCoordinator)
 		return persistentStoreCoordinator;
 	
@@ -83,7 +83,7 @@
 }
 
 - (NSManagedObjectContext *) disposableMOC {
-
+NSLog(@"MA - disposableMOC ");
 	NSManagedObjectContext *returnedContext = [[[NSManagedObjectContext alloc] init] autorelease];
 	
 	returnedContext.persistentStoreCoordinator = self.persistentStoreCoordinator;

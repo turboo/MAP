@@ -22,20 +22,12 @@
 + (NSFetchRequest *) fetchRequestInContext:(NSManagedObjectContext *)aContext forPredicateString:(NSString *)PredicateString forSortColumn:(NSString *)SortColumn {
 
 	NSFetchRequest *fetchRequest = [[[NSFetchRequest alloc] init] autorelease];
-	
 	fetchRequest.entity = [NSEntityDescription entityForName:@"Hotel" inManagedObjectContext:aContext];
-	
 	fetchRequest.predicate = [NSPredicate predicateWithFormat:PredicateString];
-		
 	fetchRequest.sortDescriptors = [NSArray arrayWithObjects:
-		
 	[NSSortDescriptor sortDescriptorWithKey:SortColumn ascending:YES],nil];
-	
-
 	//找出的資料筆數
 	//NSUInteger numberOfApartments = [aContext countForFetchRequest:fetchRequest error:nil];
-
-	
 	return fetchRequest;
 
 }
@@ -45,7 +37,6 @@
 	self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
 	if (!self)
 		return nil;
-	
 	
 	self.managedObjectContext = [[MADataStore defaultStore] disposableMOC];
 	self.fetchedResultsController = [[[NSFetchedResultsController alloc] initWithFetchRequest:((^ {
@@ -84,26 +75,32 @@
 //}
 
 
+
 - (id)init
 {
+NSLog(@"init");
     self = [super init];
-    
-    
+
     if (self) {
 //        dataArray = [[NSMutableArray alloc]init];
 //        Hotel = [[[Hotel alloc]init]autorelease];
-        managedObjectContext = [[[MADataStore defaultStore] disposableMOC] retain];
+		NSLog(@"disposableMOC");
+		managedObjectContext = [[[MADataStore defaultStore] disposableMOC] retain];
+		
     }
-    
+	
+	
     return self;
 }
 
-//用旅館ID修改[useDate]欄位(true/false)
+
+//用旅館ID修改[useDate]欄位(日期)
 -(id)inputHotelIDAndModifyuseDate:(NSString*)HotelID
 {
-	NSManagedObjectContext *context = [self disposableMOC];
+
+
     NSFetchRequest *request = [[[NSFetchRequest alloc] init] autorelease];
-	NSEntityDescription *hotelEntity = [NSEntityDescription entityForName:@"Hotel" inManagedObjectContext:context];
+	NSEntityDescription *hotelEntity = [NSEntityDescription entityForName:@"Hotel" inManagedObjectContext:self.managedObjectContext];
 	 
     [request setEntity:[NSEntityDescription entityForName:@"Hotel" inManagedObjectContext:self.managedObjectContext]];
     [request setPredicate:[NSPredicate predicateWithFormat:@"odIdentifier == %@",HotelID]];
@@ -114,44 +111,80 @@
     Hotel *hotelList = [[[Hotel alloc]init]autorelease];
 	hotelList.favorites			= [hotelDataEntity valueForKey:@"favorites"];
 	
-
-NSMutableSet *useDate = [person mutableSetValueForKey:@"children"]; //查询，可修改
-[children addObject:child];
-[children removeObject:childToBeRemoved];
-[[children managedObjectContext] deleteObject:childToBeRemoved]; //真正的删除
-NSSet *children = [person valueForKey:@"children"]; //查询，不可修改
-for (NSManagedObject *oneChild in children) {
-// do something
-
-	
+//
+//NSMutableSet *useDate = [person mutableSetValueForKey:@"children"]; //查询，可修改
+//[children addObject:child];
+//[children removeObject:childToBeRemoved];
+//[[children managedObjectContext] deleteObject:childToBeRemoved]; //真正的删除
+//NSSet *children = [person valueForKey:@"children"]; //查询，不可修改
+//for (NSManagedObject *oneChild in children) {
+//// do something
+//
+//	
     return hotelList;
     
 }
 
+//用旅館ID刪除[useDate]欄位(日期)
+-(BOOL)inputHotelIDAndDeleteuseDate:(NSString*)HotelID
+{
+	
+
+
+	//[[self managedObjectContext] deleteObject:Shop];
+
+	return [self save];
+
+
+}
 
 
 
 //用旅館ID修改我的最愛欄位(true/false)
--(id)inputHotelIDAndModifyFavorites:(NSString*)HotelID
+-(BOOL)inputHotelIDAndModifyFavorites:(NSNumber *)HotelID
 {
-	NSManagedObjectContext *context = [self disposableMOC];
-    NSFetchRequest *request = [[[NSFetchRequest alloc] init] autorelease];
-	NSEntityDescription *hotelEntity = [NSEntityDescription entityForName:@"Hotel" inManagedObjectContext:context];
-	 
-    [request setEntity:[NSEntityDescription entityForName:@"Hotel" inManagedObjectContext:self.managedObjectContext]];
-    [request setPredicate:[NSPredicate predicateWithFormat:@"odIdentifier == %@",HotelID]];
-    
-    NSArray  *searchDataArray= [self.managedObjectContext executeFetchRequest:request error:nil];
-    NSManagedObject *hotelDataEntity = [searchDataArray objectAtIndex:0];
-    
-    Hotel *hotelList = [[[Hotel alloc]init]autorelease];
+NSLog(@"HotelID = %d" , HotelID);
+	NSLog(@"1");
+	//	self.managedObjectContext
+	NSLog(@"2");
+	NSFetchRequest *fetchRequest = [[[NSFetchRequest alloc] init] autorelease];
+	//NSEntityDescription *hotelEntity = [NSEntityDescription entityForName:@"Hotel" inManagedObjectContext:self.managedObjectContext];
+	NSLog(@"3");
+	fetchRequest.entity = [NSEntityDescription entityForName:@"Hotel" inManagedObjectContext:self.managedObjectContext];
+	fetchRequest.predicate = [NSPredicate predicateWithFormat:@"odIdentifier == %d",HotelID];
+	//fetchRequest.predicate = [NSPredicate predicateWithFormat:@"favorites == 0"];
+	NSLog(@"4");    
+    NSArray  *fetchRequestDataArray= [self.managedObjectContext executeFetchRequest:fetchRequest error:nil];
+    NSManagedObject *ResultDataEntity = [fetchRequestDataArray objectAtIndex:0];
+	
+	  
+	//找出的資料筆數
+	NSUInteger numberOfApartments = [self.managedObjectContext countForFetchRequest:fetchRequest error:nil];
+	NSLog(@"找出的資料筆數= %d",numberOfApartments);
+	
+	 //[hotelEntity setValue:[NSNumber numberWithBool:YES] forKey:@"Favorites"];
+	NSLog(@"5");
+	NSLog(@"1 this Valus = %@" , [ResultDataEntity valueForKey:@"favorites"]);
+	//[ResultDataEntity setValue:[NSNumber numberWithBool:[ResultDataEntity valueForKey:@"Favorites"]?NO:YES] forKey:@"Favorites"];
+	
+	if ([ResultDataEntity valueForKey:@"Favorites"] == YES)
+		[ResultDataEntity setValue:[NSNumber numberWithBool:NO] forKey:@"Favorites"];
+	else
+		[ResultDataEntity setValue:[NSNumber numberWithBool:YES] forKey:@"Favorites"];
+		
+	NSLog(@"2 this Valus = %@" , [ResultDataEntity valueForKey:@"favorites"]);
+	NSLog(@"6");
+	//[self.managedObjectContext save];  
+	
+	NSError *savingError = nil;
+	if (![self.managedObjectContext save:&savingError])
+		NSLog(@"Error saving: %@", savingError);
+	NSLog(@"3 this Valus = %@" , [ResultDataEntity valueForKey:@"favorites"]);
+	NSLog(@"7"); 
+	return YES;
+	NSLog(@"8"); 
+//	//return NO;
 
-
-	hotelList.favorites			= [hotelDataEntity valueForKey:@"favorites"];
-
-
-    return hotelList;
-    
 }
 
 //用旅館ID列出所有欄位(true/false)

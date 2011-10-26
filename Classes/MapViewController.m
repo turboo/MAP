@@ -12,7 +12,7 @@
 #import "MADataStore.h"
 #import "CombineImages.h"
 #import "StreetView.h"
-
+#import "SearchHotelQuery.h"
 
 #define BTN_MAP_TITLE @"MAP"
 #define BTN_StreetView_TITLE @"StreetView"
@@ -43,7 +43,7 @@ static const int kMapViewController_Accessory_Disclose = 2;
 @synthesize mapView;
 
 + (NSFetchRequest *) fetchRequestInContext:(NSManagedObjectContext *)aContext forCoordinateRegion:(MKCoordinateRegion)region {
-
+NSLog(@"fetchRequestInContext ");
 	CLLocationDegrees minLat, maxLat, minLng, maxLng;
 	
 	minLat = region.center.latitude - region.span.latitudeDelta;
@@ -71,7 +71,7 @@ static const int kMapViewController_Accessory_Disclose = 2;
 }
 
 - (id) initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
-
+NSLog(@"initWithNibName ");
 	self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
 	if (!self)
 		return nil;
@@ -97,14 +97,14 @@ static const int kMapViewController_Accessory_Disclose = 2;
 }
 
 - (void) viewDidUnload {
-
+NSLog(@"viewDidUnload ");
     [super viewDidUnload];
 	[mapView release];
 	
 }
 
 - (void) loadView {
-
+NSLog(@"loadView");
 	[super loadView];
   
   //檢查網路狀態
@@ -127,7 +127,7 @@ static const int kMapViewController_Accessory_Disclose = 2;
 }
 
 - (void) dealloc {
-
+NSLog(@"dealloc");
 	[managedObjectContext release];
 	[fetchedResultsController release];
 	[mapView release];
@@ -136,7 +136,7 @@ static const int kMapViewController_Accessory_Disclose = 2;
 }
 
 - (void) viewDidLoad {
-    
+NSLog(@"viewDidLoad");
 	[super viewDidLoad];
     mapView.showsUserLocation = YES;
     mapView.zoomEnabled = YES;
@@ -161,7 +161,7 @@ static const int kMapViewController_Accessory_Disclose = 2;
 }
 
 - (void) mapView:(MKMapView *)aMapView regionDidChangeAnimated:(BOOL)animated {
-
+NSLog(@"mapView");
 	NSFetchRequest *newFetchRequest = [[self class] fetchRequestInContext:self.managedObjectContext forCoordinateRegion:aMapView.region];
 	
 	if (self.fetchedResultsController.cacheName)
@@ -178,7 +178,7 @@ static const int kMapViewController_Accessory_Disclose = 2;
 }
 
 - (void) refreshAnnotations {
-
+NSLog(@"refreshAnnotations");
 	NSArray *shownHotels = self.fetchedResultsController.fetchedObjects;
 	NSMutableArray *shownAnnotations = [NSMutableArray arrayWithCapacity:[shownHotels count]];
 
@@ -220,7 +220,7 @@ static const int kMapViewController_Accessory_Disclose = 2;
 		annotation.costStay = aHotel.costStay;
 		annotation.costRest = aHotel.costRest;
 		annotation.representedObject = aHotel;
-    NSLog(@"CostStay = %@",aHotel.costStay);
+    //NSLog(@"CostStay = %@",aHotel.costStay);
 	}];
 	
 	[self.mapView addAnnotations:shownAnnotations];
@@ -228,7 +228,7 @@ static const int kMapViewController_Accessory_Disclose = 2;
 }
 
 - (MKAnnotationView *) mapView:(MKMapView *)aMapView viewForAnnotation:(MyAnnotation *)annotation{
-
+NSLog(@"mapView 2");
 	if (![annotation isKindOfClass:[MyAnnotation class]]) {
 		NSLog(@"%s: Handle user location annotation view", __PRETTY_FUNCTION__);
 		return nil;	
@@ -276,7 +276,7 @@ static const int kMapViewController_Accessory_Disclose = 2;
 }
 
 - (void) mapView:(MKMapView *)mapView annotationView:(MKAnnotationView *)annotationView calloutAccessoryControlTapped:(UIControl *)control{
-
+NSLog(@"mapView 3");
 	switch (control.tag) {	
 		
 		case kMapViewController_Accessory_StreetView: {
@@ -288,6 +288,13 @@ static const int kMapViewController_Accessory_Disclose = 2;
 		
 
 			 NSLog(@"Hotel title : %s",annotationView.tag);
+			 
+			NSLog(@"ModifyFavorites start");	
+			SearchHotelQuery *HotelQuery=[[SearchHotelQuery alloc] init];	
+			
+			 [HotelQuery inputHotelIDAndModifyFavorites:1];
+			
+			NSLog(@"ModifyFavorites end");
 		
 			//[self showDetailsViewFromAnnotation:annotationView.annotation];
 			break;
@@ -298,7 +305,7 @@ static const int kMapViewController_Accessory_Disclose = 2;
 }
 
 - (void) showDetailsViewFromAnnotation:(NSNumber *)HotelID {
-
+NSLog(@"showDetailsViewFromAnnotation");
 	UITableViewController *DetailsViewController = [[[UITableViewController alloc] init] autorelease];
 	[self.navigationController pushViewController:DetailsViewController animated:NO];
 	self.navigationController.title = HotelID;
@@ -306,7 +313,7 @@ static const int kMapViewController_Accessory_Disclose = 2;
 }
 
 - (void) showStreetViewFromAnnotation:(id<MKAnnotation>)anAnnotation {
-
+NSLog(@"showStreetViewFromAnnotation");
 	StreetViewController *streetViewController = [[[StreetViewController alloc] initWithCoordinate:[anAnnotation coordinate]] autorelease];
 	[self.navigationController pushViewController:streetViewController animated:YES];
   
