@@ -16,14 +16,14 @@
 
 - (void) dealloc {
 
-    [odIdentifier release];
-    [title release];
-    [subtitle release];
+  [odIdentifier release];
+  [title release];
+  [subtitle release];
 	[costRest release];
 	[costStay release];
 	[representedObject release];
     
-    [super dealloc];
+  [super dealloc];
     
 }
 

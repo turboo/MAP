@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<model name="" userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="562" systemVersion="10K549" minimumToolsVersion="Automatic" macOSVersion="Automatic" iOSVersion="Automatic">
+<model name="" userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="872" systemVersion="10K549" minimumToolsVersion="Automatic" macOSVersion="Automatic" iOSVersion="Automatic">
     <entity name="Hotel" representedClassName="Hotel">
         <attribute name="address" optional="YES" attributeType="String"/>
         <attribute name="areaCode" optional="YES" attributeType="Integer 16" defaultValueString="0"/>
@@ -21,8 +21,9 @@
         <attribute name="ttIdentifier" optional="YES" attributeType="String"/>
         <attribute name="useDate" optional="YES" attributeType="Date"/>
         <attribute name="xmlUpdateDate" optional="YES" attributeType="Date"/>
+        <attribute name="xurl" optional="YES" attributeType="String" syncable="YES"/>
     </entity>
     <elements>
-        <element name="Hotel" positionX="-4680" positionY="300" width="128" height="345"/>
+        <element name="Hotel" positionX="-4680" positionY="300" width="128" height="360"/>
     </elements>
 </model>

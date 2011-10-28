@@ -13,6 +13,7 @@
 #import "CombineImages.h"
 #import "StreetView.h"
 #import "SearchHotelQuery.h"
+#import "HotelDetailWebView.h"
 
 #define BTN_MAP_TITLE @"MAP"
 #define BTN_StreetView_TITLE @"StreetView"
@@ -236,13 +237,10 @@ NSLog(@"mapView 2");
 	
 	NSString * identifier = [[self class] imageNameForAnnotationType:annotation.type];
   
-	MKPinAnnotationView *pinView = (MKPinAnnotationView *)[aMapView dequeueReusableAnnotationViewWithIdentifier:identifier];
+	MKAnnotationView *pinView = (MKAnnotationView *)[aMapView dequeueReusableAnnotationViewWithIdentifier:identifier];
 	
 	if (!pinView) {
-
-		pinView.tag = annotation.odIdentifier;
-
-		pinView = [[[MKPinAnnotationView alloc] initWithAnnotation:annotation reuseIdentifier:identifier] autorelease];
+		pinView = [[[MKAnnotationView alloc] initWithAnnotation:annotation reuseIdentifier:identifier] autorelease];
 		pinView.canShowCallout = YES;
 		pinView.calloutOffset = CGPointZero;
 		
@@ -275,6 +273,7 @@ NSLog(@"mapView 2");
 
 }
 
+//- (void) mapView:(MKMapView *)mapView annotationView:(MKAnnotationView *)annotationView calloutAccessoryControlTapped:(UIControl *)control{
 - (void) mapView:(MKMapView *)mapView annotationView:(MKAnnotationView *)annotationView calloutAccessoryControlTapped:(UIControl *)control{
 NSLog(@"mapView 3");
 	switch (control.tag) {	
@@ -285,17 +284,26 @@ NSLog(@"mapView 3");
 		}
 		
 		case kMapViewController_Accessory_Disclose: {
-		
-
-			 NSLog(@"Hotel title : %s",annotationView.tag);
-			 
+      NSLog(@"data:%@",[annotationView description]);
+      //MyAnnotation *hotelData = [[[MyAnnotation alloc]init]autorelease];
+      //hotelData = annotationView;
+      //NSLog(@"Hotel title : %@",hotelData.title);
+      //NSLog(@"Hotel hotelData.odIdentifier : %@",hotelData.odIdentifier);
+      //annotation.odIdentifier
 			NSLog(@"ModifyFavorites start");	
-			SearchHotelQuery *HotelQuery=[[SearchHotelQuery alloc] init];	
 			
-			 [HotelQuery inputHotelIDAndModifyFavorites:1];
-			
+			// OK[HotelQuery inputHotelIDAndModifyFavorites:1];
+			// OK[HotelQuery inputHotelIDAndListData:1];
+			// OK[HotelQuery inputHotelIDAndDeleteuseDate:1];
+			// OK[HotelQuery inputHotelIDAndModifyuseDate:1];
+			// OK[HotelQuery inputHotelIDAndListDataAndChange:1];
+			// OK[HotelQuery showFavoritesList ];
+			// OK[HotelQuery showHistoryList];
+			//[HotelQuery inputHotelIDAndListDataAndChange:10];
+      [self showDetailsViewFromAnnotation:10 title:@"test_title"];
+			//[self showDetailsViewFromAnnotation:hotelData.odIdentifier];      
 			NSLog(@"ModifyFavorites end");
-		
+      //hotelData = nil;
 			//[self showDetailsViewFromAnnotation:annotationView.annotation];
 			break;
 		}
@@ -304,11 +312,11 @@ NSLog(@"mapView 3");
 
 }
 
-- (void) showDetailsViewFromAnnotation:(NSNumber *)HotelID {
+- (void) showDetailsViewFromAnnotation:(NSNumber *)hotelID title:(NSString *)hotelTitle{
 NSLog(@"showDetailsViewFromAnnotation");
-	UITableViewController *DetailsViewController = [[[UITableViewController alloc] init] autorelease];
+	HotelDetailWebViewController *DetailsViewController = [[[HotelDetailWebViewController alloc] initWithHotelID:hotelID ] autorelease];
 	[self.navigationController pushViewController:DetailsViewController animated:NO];
-	self.navigationController.title = HotelID;
+	self.navigationController.title = hotelTitle;
 
 }
 

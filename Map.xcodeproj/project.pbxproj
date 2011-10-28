@@ -19,6 +19,8 @@
 		28AD733F0D9D9553002E5188 /* MainWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 28AD733E0D9D9553002E5188 /* MainWindow.xib */; };
 		A923A83A1451BBF000EC5198 /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = A923A8391451BBF000EC5198 /* Reachability.m */; };
 		A923A83D1451C6CD00EC5198 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A923A83C1451C6CD00EC5198 /* SystemConfiguration.framework */; };
+		A9B0D4291459C84500A5521F /* icon1@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A9B0D4281459C84500A5521F /* icon1@2x.png */; };
+		A9B0D42C1459C85400A5521F /* icon1 2.png in Resources */ = {isa = PBXBuildFile; fileRef = A9B0D42B1459C85400A5521F /* icon1 2.png */; };
 		A9B52CE6145099A100F84479 /* StreetView.png in Resources */ = {isa = PBXBuildFile; fileRef = A9B52CE5145099A100F84479 /* StreetView.png */; };
 		DD10B4FB1455351A00738471 /* SearchHotelQuery.m in Sources */ = {isa = PBXBuildFile; fileRef = DD10B4FA1455351A00738471 /* SearchHotelQuery.m */; };
 		DD1A712F144FF0C400418718 /* bubble01.png in Resources */ = {isa = PBXBuildFile; fileRef = DD1A7119144FF0C300418718 /* bubble01.png */; };
@@ -44,6 +46,7 @@
 		DD1A7143144FF0C400418718 /* bubble11.png in Resources */ = {isa = PBXBuildFile; fileRef = DD1A712D144FF0C400418718 /* bubble11.png */; };
 		DD1A7144144FF0C400418718 /* bubble11@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = DD1A712E144FF0C400418718 /* bubble11@2x.png */; };
 		DD1A715714501AC800418718 /* StreetView.m in Sources */ = {isa = PBXBuildFile; fileRef = DD1A715614501AC800418718 /* StreetView.m */; };
+		DD70C67114595F0700085B05 /* HotelDetailWebView.m in Sources */ = {isa = PBXBuildFile; fileRef = DD70C67014595F0600085B05 /* HotelDetailWebView.m */; };
 		DD72E1EE144BC247000F0AD3 /* OKHotel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = DD72E1EC144BC247000F0AD3 /* OKHotel.xcdatamodeld */; };
 		DD72E1F3144BC447000F0AD3 /* MADataStore.m in Sources */ = {isa = PBXBuildFile; fileRef = DD72E1F2144BC447000F0AD3 /* MADataStore.m */; };
 		DD72E1F5144BC73A000F0AD3 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DD72E1F4144BC73A000F0AD3 /* CoreData.framework */; };
@@ -75,6 +78,8 @@
 		A923A8381451BBF000EC5198 /* Reachability.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Reachability.h; sourceTree = "<group>"; };
 		A923A8391451BBF000EC5198 /* Reachability.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Reachability.m; sourceTree = "<group>"; };
 		A923A83C1451C6CD00EC5198 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
+		A9B0D4281459C84500A5521F /* icon1@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon1@2x.png"; sourceTree = "<group>"; };
+		A9B0D42B1459C85400A5521F /* icon1 2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon1 2.png"; sourceTree = "<group>"; };
 		A9B52CE5145099A100F84479 /* StreetView.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = StreetView.png; sourceTree = "<group>"; };
 		DD10B4F91455351A00738471 /* SearchHotelQuery.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SearchHotelQuery.h; sourceTree = "<group>"; };
 		DD10B4FA1455351A00738471 /* SearchHotelQuery.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SearchHotelQuery.m; sourceTree = "<group>"; };
@@ -103,6 +108,8 @@
 		DD1A715514501AC800418718 /* StreetView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = StreetView.h; path = ../../../Project/Map/Classes/StreetView.h; sourceTree = "<group>"; };
 		DD1A715614501AC800418718 /* StreetView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = StreetView.m; path = ../../../Project/Map/Classes/StreetView.m; sourceTree = "<group>"; };
 		DD1A9A1E144D105100CB6ACE /* OKHotel 3.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "OKHotel 3.xcdatamodel"; sourceTree = "<group>"; };
+		DD70C66F14595F0600085B05 /* HotelDetailWebView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = HotelDetailWebView.h; path = ../../../Project/Map/Classes/HotelDetailWebView.h; sourceTree = "<group>"; };
+		DD70C67014595F0600085B05 /* HotelDetailWebView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = HotelDetailWebView.m; path = ../../../Project/Map/Classes/HotelDetailWebView.m; sourceTree = "<group>"; };
 		DD72E1ED144BC247000F0AD3 /* OKHotel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = OKHotel.xcdatamodel; sourceTree = "<group>"; };
 		DD72E1F0144BC415000F0AD3 /* OKHotel 2.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "OKHotel 2.xcdatamodel"; sourceTree = "<group>"; };
 		DD72E1F1144BC447000F0AD3 /* MADataStore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MADataStore.h; sourceTree = "<group>"; };
@@ -162,6 +169,8 @@
 				DD1A715614501AC800418718 /* StreetView.m */,
 				DD10B4F91455351A00738471 /* SearchHotelQuery.h */,
 				DD10B4FA1455351A00738471 /* SearchHotelQuery.m */,
+				DD70C66F14595F0600085B05 /* HotelDetailWebView.h */,
+				DD70C67014595F0600085B05 /* HotelDetailWebView.m */,
 			);
 			path = Classes;
 			sourceTree = "<group>";
@@ -177,6 +186,8 @@
 		29B97314FDCFA39411CA2CEA /* CustomTemplate */ = {
 			isa = PBXGroup;
 			children = (
+				A9B0D42B1459C85400A5521F /* icon1 2.png */,
+				A9B0D4281459C84500A5521F /* icon1@2x.png */,
 				080E96DDFE201D6D7F000001 /* Classes */,
 				29B97315FDCFA39411CA2CEA /* Other Sources */,
 				29B97317FDCFA39411CA2CEA /* Resources */,
@@ -328,6 +339,8 @@
 				DD1A7144144FF0C400418718 /* bubble11@2x.png in Resources */,
 				A9B52CE6145099A100F84479 /* StreetView.png in Resources */,
 				DDFE27E51450FFFF001BA208 /* WB.jpeg in Resources */,
+				A9B0D4291459C84500A5521F /* icon1@2x.png in Resources */,
+				A9B0D42C1459C85400A5521F /* icon1 2.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -350,6 +363,7 @@
 				DD1A715714501AC800418718 /* StreetView.m in Sources */,
 				A923A83A1451BBF000EC5198 /* Reachability.m in Sources */,
 				DD10B4FB1455351A00738471 /* SearchHotelQuery.m in Sources */,
+				DD70C67114595F0700085B05 /* HotelDetailWebView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

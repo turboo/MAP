@@ -31,5 +31,6 @@
 @dynamic costStay;
 @dynamic costRest;
 @dynamic useDate;
+@dynamic xurl;
 
 @end

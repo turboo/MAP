@@ -13,5 +13,5 @@
 - (UIImage *) compositeImageWithOverlayText:(NSString *)theText;
 - (UIImage *) compositeImageWithOverlayImage:(UIImage *)image2;
 - (UIImage *) scaledImageWithSize:(CGSize)reSize;
-
+- (UIImage *) sendURLReturnImage:(NSString *)imageURL;
 @end
